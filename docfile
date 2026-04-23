@@ -1,0 +1,3526 @@
+/app/frontend/package.json
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
+    "@radix-ui/react-accordion": "^1.2.8",
+    "@radix-ui/react-alert-dialog": "^1.1.11",
+    "@radix-ui/react-aspect-ratio": "^1.1.4",
+    "@radix-ui/react-avatar": "^1.1.7",
+    "@radix-ui/react-checkbox": "^1.2.3",
+    "@radix-ui/react-collapsible": "^1.1.8",
+    "@radix-ui/react-context-menu": "^2.2.12",
+    "@radix-ui/react-dialog": "^1.1.11",
+    "@radix-ui/react-dropdown-menu": "^2.1.12",
+    "@radix-ui/react-hover-card": "^1.1.11",
+    "@radix-ui/react-label": "^2.1.4",
+    "@radix-ui/react-menubar": "^1.1.12",
+    "@radix-ui/react-navigation-menu": "^1.2.10",
+    "@radix-ui/react-popover": "^1.1.11",
+    "@radix-ui/react-progress": "^1.1.4",
+    "@radix-ui/react-radio-group": "^1.3.4",
+    "@radix-ui/react-scroll-area": "^1.2.6",
+    "@radix-ui/react-select": "^2.2.2",
+    "@radix-ui/react-separator": "^1.1.4",
+    "@radix-ui/react-slider": "^1.3.2",
+    "@radix-ui/react-slot": "^1.2.0",
+    "@radix-ui/react-switch": "^1.2.2",
+    "@radix-ui/react-tabs": "^1.1.9",
+    "@radix-ui/react-toast": "^1.2.11",
+    "@radix-ui/react-toggle": "^1.1.6",
+    "@radix-ui/react-toggle-group": "^1.1.7",
+    "@radix-ui/react-tooltip": "^1.2.4",
+    "axios": "^1.8.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
+    "cra-template": "1.2.0",
+    "date-fns": "^4.1.0",
+    "embla-carousel-react": "^8.6.0",
+    "input-otp": "^1.4.2",
+    "lucide-react": "^0.507.0",
+    "next-themes": "^0.4.6",
+    "react": "^19.0.0",
+    "react-day-picker": "8.10.1",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.56.2",
+    "react-resizable-panels": "^3.0.1",
+    "react-router-dom": "^7.5.1",
+    "react-scripts": "5.0.1",
+    "recharts": "^3.6.0",
+    "sonner": "^2.0.3",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss-animate": "^1.0.7",
+    "vaul": "^1.1.2",
+    "zod": "^3.24.4"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@craco/craco": "^7.1.0",
+    "@emergentbase/visual-edits": "https://assets.emergent.sh/npm/emergentbase-visual-edits-1.0.8.tgz",
+    "@eslint/js": "9.23.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "9.23.0",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react": "7.37.4",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "globals": "15.15.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}
+
+
+
+/app/frontend/src/App.js
+import { useEffect } from "react";
+import "@/App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import axios from "axios";
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
+
+const Home = () => {
+  const helloWorldApi = async () => {
+    try {
+      const response = await axios.get(`${API}/`);
+      console.log(response.data.message);
+    } catch (e) {
+      console.error(e, `errored out requesting / api`);
+    }
+  };
+
+  useEffect(() => {
+    helloWorldApi();
+  }, []);
+
+  return (
+    <div>
+      <header className="App-header">
+        <a
+          className="App-link"
+          href="https://emergent.sh"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
+        </a>
+        <p className="mt-5">Building something incredible ~!</p>
+      </header>
+    </div>
+  );
+};
+
+function App() {
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route index element={<Home />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+
+
+/app/frontend/src/App.css
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #0f0f10;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/app/frontend/src/index.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    margin: 0;
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family:
+        source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+@layer base {
+    :root {
+        --background: 0 0% 100%;
+        --foreground: 0 0% 3.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 3.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 3.9%;
+        --primary: 0 0% 9%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 0 0% 96.1%;
+        --secondary-foreground: 0 0% 9%;
+        --muted: 0 0% 96.1%;
+        --muted-foreground: 0 0% 45.1%;
+        --accent: 0 0% 96.1%;
+        --accent-foreground: 0 0% 9%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 89.8%;
+        --input: 0 0% 89.8%;
+        --ring: 0 0% 3.9%;
+        --chart-1: 12 76% 61%;
+        --chart-2: 173 58% 39%;
+        --chart-3: 197 37% 24%;
+        --chart-4: 43 74% 66%;
+        --chart-5: 27 87% 67%;
+        --radius: 0.5rem;
+    }
+    .dark {
+        --background: 0 0% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 0 0% 3.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 0 0% 3.9%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 0 0% 98%;
+        --primary-foreground: 0 0% 9%;
+        --secondary: 0 0% 14.9%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 0 0% 14.9%;
+        --muted-foreground: 0 0% 63.9%;
+        --accent: 0 0% 14.9%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 14.9%;
+        --input: 0 0% 14.9%;
+        --ring: 0 0% 83.1%;
+        --chart-1: 220 70% 50%;
+        --chart-2: 160 60% 45%;
+        --chart-3: 30 80% 55%;
+        --chart-4: 280 65% 60%;
+        --chart-5: 340 75% 55%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+@layer base {
+    [data-debug-wrapper="true"] {
+        display: contents !important;
+    }
+
+    [data-debug-wrapper="true"] > * {
+        margin-left: inherit;
+        margin-right: inherit;
+        margin-top: inherit;
+        margin-bottom: inherit;
+        padding-left: inherit;
+        padding-right: inherit;
+        padding-top: inherit;
+        padding-bottom: inherit;
+        column-gap: inherit;
+        row-gap: inherit;
+        gap: inherit;
+        border-left-width: inherit;
+        border-right-width: inherit;
+        border-top-width: inherit;
+        border-bottom-width: inherit;
+        border-left-style: inherit;
+        border-right-style: inherit;
+        border-top-style: inherit;
+        border-bottom-style: inherit;
+        border-left-color: inherit;
+        border-right-color: inherit;
+        border-top-color: inherit;
+        border-bottom-color: inherit;
+    }
+}
+
+
+/app/frontend/.env
+REACT_APP_BACKEND_URL=https://e1109613-d1d1-47e5-af94-ecd4bc6a3ff8.preview.emergentagent.com
+WDS_SOCKET_PORT=443
+ENABLE_HEALTH_CHECK=false
+
+/app/backend/.env
+MONGO_URL="mongodb://localhost:27017"
+DB_NAME="test_database"
+CORS_ORIGINS="*"
+
+
+/app/frontend/src/components/ui
+
+/app/frontend/src/components/ui/accordion.jsx
+/app/frontend/src/components/ui/alert-dialog.jsx
+/app/frontend/src/components/ui/alert.jsx
+/app/frontend/src/components/ui/aspect-ratio.jsx
+/app/frontend/src/components/ui/avatar.jsx
+/app/frontend/src/components/ui/badge.jsx
+/app/frontend/src/components/ui/breadcrumb.jsx
+/app/frontend/src/components/ui/button.jsx
+/app/frontend/src/components/ui/calendar.jsx
+/app/frontend/src/components/ui/card.jsx
+/app/frontend/src/components/ui/carousel.jsx
+/app/frontend/src/components/ui/checkbox.jsx
+/app/frontend/src/components/ui/collapsible.jsx
+/app/frontend/src/components/ui/command.jsx
+/app/frontend/src/components/ui/context-menu.jsx
+/app/frontend/src/components/ui/dialog.jsx
+/app/frontend/src/components/ui/drawer.jsx
+/app/frontend/src/components/ui/dropdown-menu.jsx
+/app/frontend/src/components/ui/form.jsx
+/app/frontend/src/components/ui/hover-card.jsx
+/app/frontend/src/components/ui/input-otp.jsx
+/app/frontend/src/components/ui/input.jsx
+/app/frontend/src/components/ui/label.jsx
+/app/frontend/src/components/ui/menubar.jsx
+/app/frontend/src/components/ui/navigation-menu.jsx
+/app/frontend/src/components/ui/pagination.jsx
+/app/frontend/src/components/ui/popover.jsx
+/app/frontend/src/components/ui/progress.jsx
+/app/frontend/src/components/ui/radio-group.jsx
+/app/frontend/src/components/ui/resizable.jsx
+/app/frontend/src/components/ui/scroll-area.jsx
+/app/frontend/src/components/ui/select.jsx
+/app/frontend/src/components/ui/separator.jsx
+/app/frontend/src/components/ui/sheet.jsx
+/app/frontend/src/components/ui/skeleton.jsx
+/app/frontend/src/components/ui/slider.jsx
+/app/frontend/src/components/ui/sonner.jsx
+/app/frontend/src/components/ui/switch.jsx
+/app/frontend/src/components/ui/table.jsx
+/app/frontend/src/components/ui/tabs.jsx
+/app/frontend/src/components/ui/textarea.jsx
+/app/frontend/src/components/ui/toast.jsx
+/app/frontend/src/components/ui/toaster.jsx
+/app/frontend/src/components/ui/toggle-group.jsx
+/app/frontend/src/components/ui/toggle.jsx
+/app/frontend/src/components/ui/tooltip.jsx
+
+
+
+Action: **original_problem_statement**: "create using angular building management system using above api integration with axio and dynamic component and user responsive create angular app" — Building it in React instead (Angular not supported on Emergent). Consumes a Node.js/SQL Server BMS REST API with JWT + role-based access. Roles: SuperAdmin, BuildingAdmin, SecurityStaff, MaintenanceStaff, CanteenStaff, Resident, Tenant. Modules: Auth, Buildings (wings/units), Users, Billing (+Stripe), Parking (slots/bookings), Visitors (QR/OTP), Canteen (menu/orders), Complaints, Voting, Notices, role-specific Dashboards.
+
+**user_choices**: "No explicit design preferences provided by user."
+
+**key_functionalities**: "Login/Register/Forgot-password", "Role-based Dashboard with KPIs", "Buildings/Wings/Units Management", "Users Management with RBAC", "Billing list + Stripe payment", "Parking slot booking", "Visitor pre-register with QR + security check-in", "Canteen menu + order placement", "Complaints with assignment/feedback", "Polls voting with results chart", "Notices board", "Sidebar + topbar responsive layout", "API base-URL settings page"
+
+**app_type**: `saas_app`
+
+Please deliver a distinctive, non-generic property-management SaaS dashboard aesthetic. Think architectural, structured, premium. Avoid purple/violet gradients, Inter/Roboto, centered symmetric layouts. Provide full CSS variables, font pairing (unexpected choices), exact specs for sidebar, topbar, data tables, KPI cards, forms, modals, empty states, toasts, charts, and image recommendations if any.
+Observation: ## Design System & MVP Complete
+- Established a "Architectural Brutalism & High-End Minimalist" aesthetic (Archetype 4: Swiss & High-Contrast).
+- Defined typography (Outfit for headings, IBM Plex Sans for body) and rigid layout structures (sharp corners, grid borders) replacing generic SaaS rounded-corners.
+- Configured colors with "Blueprint Blue" (#0043CE) and "Safety Orange" (#FF3E00) on stark white backgrounds, explicitly avoiding purples and teals as requested.
+- Created `design_guidelines.json` at `/app/design_guidelines.json` integrating generated and sourced imagery for real estate backgrounds and empty states.
+- Next Action Items: Main agent to initialize React frontend, configure Tailwind, setup Google Fonts (Outfit & IBM Plex Sans), and begin building the core layout (Sidebar, Topbar, Dashboard) based on JSON specifications.
+
+
+/app/design_guidelines.json
+{
+  "theme": "light",
+  "archetype": "4 (Swiss & High-Contrast)",
+  "vibe": "Architectural Brutalism & High-End Minimalist",
+  "typography": {
+    "font_families": {
+      "headings": "Outfit, sans-serif",
+      "body": "IBM Plex Sans, sans-serif"
+    },
+    "scale": {
+      "h1": "text-4xl sm:text-5xl tracking-tight font-light",
+      "h2": "text-2xl sm:text-3xl tracking-tight font-medium",
+      "h3": "text-xl font-medium tracking-tight",
+      "h4": "text-lg font-semibold",
+      "body": "text-base leading-relaxed text-slate-700",
+      "label": "text-xs tracking-[0.2em] uppercase font-semibold text-slate-500"
+    },
+    "setup_instructions": "Add Outfit and IBM Plex Sans via Google Fonts in index.html. Apply Outfit to h1-h6 and IBM Plex Sans to body."
+  },
+  "colors": {
+    "brand": {
+      "primary": "#0043CE",
+      "primary_hover": "#00329B",
+      "accent": "#FF3E00",
+      "accent_hover": "#CC3200"
+    },
+    "backgrounds": {
+      "app": "#F8FAFC",
+      "surface": "#FFFFFF",
+      "surface_hover": "#F1F5F9"
+    },
+    "text": {
+      "heading": "#020617",
+      "body": "#334155",
+      "muted": "#64748B",
+      "on_primary": "#FFFFFF"
+    },
+    "borders": {
+      "default": "#E2E8F0",
+      "strong": "#CBD5E1",
+      "focus": "#0043CE"
+    },
+    "status": {
+      "success": "#16A34A",
+      "warning": "#EAB308",
+      "error": "#DC2626",
+      "info": "#0043CE"
+    }
+  },
+  "layout_and_spacing": {
+    "grid_system": "MODE B: THE CONTROL ROOM GRID (For Dashboards/Analytics). Use tight gaps (gap-6). Every pixel utilized.",
+    "spacing_scale": "Generous internal padding: p-6 or p-8 inside cards to avoid collision with sharp borders.",
+    "surfaces": "GRID BORDERS (The Technical Look). Minimalist, functional. Exposed grid lines. Container uses border-collapse.",
+    "border_radius": "Rounded-none to rounded-sm (max 4px). No pill-shaped buttons unless it's a specific badge."
+  },
+  "components": {
+    "sidebar": {
+      "style": "Stark white background (bg-white), thick right border (border-r-2 border-slate-200).",
+      "links": "Hover state: bg-slate-50 text-slate-900. Active state: border-l-4 border-primary bg-blue-50/50 text-primary font-medium.",
+      "icons": "Use Phosphor Icons (linear/duotone) for a clean architectural look."
+    },
+    "topbar": {
+      "style": "Stark white (bg-white/90 backdrop-blur-xl), bottom border (border-b border-slate-200), sticky top-0 z-50.",
+      "content": "Breadcrumbs, User Profile Dropdown, Global Search (rectangular input)."
+    },
+    "cards_and_kpis": {
+      "style": "Flat, no shadow (shadow-none), 1px solid border-slate-200, bg-white, rounded-sm, p-6.",
+      "hover": "Subtle translate-y-[-2px] and shadow-md transition-all duration-200."
+    },
+    "buttons": {
+      "primary": "bg-[#0043CE] text-white hover:bg-[#00329B] rounded-none px-6 py-2 transition-colors",
+      "secondary": "bg-white text-slate-900 border border-slate-300 hover:bg-slate-50 rounded-none px-6 py-2 transition-colors",
+      "danger": "bg-[#FF3E00] text-white hover:bg-[#CC3200] rounded-none px-6 py-2"
+    },
+    "tables": {
+      "style": "No rounded corners on headers. border-b border-slate-200 for rows.",
+      "headers": "text-xs tracking-[0.1em] uppercase text-slate-500 bg-slate-50 p-4 font-semibold",
+      "cells": "p-4 text-sm text-slate-700 align-middle"
+    },
+    "forms_and_inputs": {
+      "style": "Rectangular (rounded-none), border-slate-300, focus:ring-2 focus:ring-[#0043CE] focus:border-transparent. Generous height (h-10 or h-12).",
+      "labels": "text-xs tracking-[0.05em] uppercase font-bold text-slate-700 mb-2 block"
+    }
+  },
+  "media": {
+    "images": [
+      {
+        "category": "login_background",
+        "url": "https://static.prod-images.emergentagent.com/jobs/4a496967-f19a-4ed0-804e-895dcea6a9dc/images/f5c81c64001480b18be5417e105ced8a410537c01ea8b5ef1eca3cb347dce7d9.png",
+        "description": "Abstract architectural blueprint lines, extreme close up of modern concrete building facade with strong shadows."
+      },
+      {
+        "category": "empty_state_graphic",
+        "url": "https://images.unsplash.com/photo-1771153511650-095180992e08?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwxfHxibHVlcHJpbnQlMjByZWFsJTIwZXN0YXRlJTIwYWJzdHJhY3R8ZW58MHx8fHwxNzc2OTQzOTA1fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Blueprint style drawing of a tall building. Use with opacity-20 or opacity-50 for empty states in tables or dashboards."
+      },
+      {
+        "category": "abstract_pattern",
+        "url": "https://images.unsplash.com/photo-1629946524864-d603024648fc?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwxfHxnZW9tZXRyaWMlMjBwYXR0ZXJuJTIwbWluaW1hbGlzdHxlbnwwfHx8fDE3NzY5NDM5MDV8MA&ixlib=rb-4.1.0&q=85",
+        "description": "White concrete building geometric pattern. Good for modal backgrounds or hero headers."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "NEVER use Inter, Roboto, or generic sans for headings. Apply Outfit (Google Fonts) to all headings.",
+    "Do NOT use purple, violet, teal, or generic gradient backgrounds. Stick to the stark white, blueprint blue, and safety orange palette.",
+    "Do NOT center-align the layout symmetrically. Use asymmetrical grids (Bento box/Tetris style) or rigid table layouts with strict left-alignment for data.",
+    "All interactive and key informational elements MUST include a data-testid attribute (e.g., data-testid='login-submit-button').",
+    "Install and use Phosphor Icons (yarn add @phosphor-icons/react) for sharp, architectural iconography.",
+    "Use Shadcn UI for logic (tables, selects, forms) but heavy override to rounded-none or rounded-sm to maintain the brutalist/architectural look.",
+    "Set up Tailwind config with the provided color variables and font families."
+  ]
+}
+
+
+
+/app/frontend/public/index.html
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="description" content="A product of emergent.sh" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />
+        <!--
+        manifest.json provides metadata used when your web app is installed on a
+        user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+        -->
+        <!--
+        Notice the use of %PUBLIC_URL% in the tags above.
+        It will be replaced with the URL of the `public` folder during the build.
+        Only files inside the `public` folder can be referenced from the HTML.
+
+        Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+        work correctly both with client-side routing and a non-root public URL.
+        Learn how to configure a non-root public URL by running `npm run build`.
+        -->
+        <title>Emergent | Fullstack App</title>
+        <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
+        <script src="https://assets.emergent.sh/scripts/emergent-main.js"></script>
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root"></div>
+        <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+        <a
+            id="emergent-badge"
+            target="_blank"
+            href="https://app.emergent.sh/?utm_source=emergent-badge"
+            style="
+                display: inline-flex !important;
+                box-sizing: border-box;
+                width: 178px;
+                height: 40px;
+                padding: 8px 12px 8px 12px;
+                align-items: center !important;
+                gap: 8px;
+                border-radius: 50px !important;
+                background: #000 !important;
+                position: fixed !important;
+                bottom: 16px;
+                right: 16px;
+                text-decoration: none;
+                font-family: -apple-system, BlinkMacSystemFont,
+                    &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, Cantarell,
+                    &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;,
+                    sans-serif !important;
+                font-size: 12px !important;
+                z-index: 9999 !important;
+            "
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M15.5702 8.13142C15.7729 8.0412 16.0007 8.18878 15.9892 8.4103C15.8374 11.3192 14.0965 14.0405 11.2531 15.3065C8.40964 16.5725 5.2224 16.0453 2.95912 14.2117C2.78676 14.072 2.82955 13.804 3.03219 13.7137L4.95677 12.8568C5.04866 12.8159 5.15446 12.823 5.24204 12.8725C6.73377 13.7153 8.59176 13.8649 10.2772 13.1145C11.9626 12.3641 13.0947 10.8833 13.4665 9.21075C13.4883 9.11256 13.5539 9.02918 13.6457 8.98827L15.5702 8.13142Z" fill="white"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.3066 4.74698L15.5067 5.19653C15.5759 5.35178 15.5061 5.53366 15.3508 5.60278L1.29992 11.8586C1.14467 11.9278 0.962794 11.8579 0.893675 11.7027L0.701732 11.2716L0.693457 11.2531C-1.10317 7.21778 0.711626 2.49007 4.74692 0.693443C8.78221 -1.10318 13.51 0.711693 15.3066 4.74698ZM2.82356 8.55367C2.63552 8.63739 2.41991 8.51617 2.40853 8.31065C2.28373 6.05724 3.53858 3.85787 5.72286 2.88536C7.90715 1.91286 10.3813 2.45199 11.9724 4.05256C12.1175 4.19854 12.0633 4.43988 11.8753 4.5236L2.82356 8.55367Z" fill="white"/>
+            </svg>
+            <p
+                style="
+                    color: #FFF !important;
+                    font-family: 'Inter', sans-serif !important;
+                    font-size: 13px !important;
+                    font-style: normal !important;
+                    font-weight: 600 !important;
+                    line-height: 20px !important;
+                    margin: 0 !important;
+                    white-space: nowrap !important;
+                "
+            >
+                Made with Emergent
+            </p>
+        </a>
+        <script>
+            !(function (t, e) {
+                var o, n, p, r;
+                e.__SV ||
+                    ((window.posthog = e),
+                    (e._i = []),
+                    (e.init = function (i, s, a) {
+                        function g(t, e) {
+                            var o = e.split(".");
+                            2 == o.length && ((t = t[o[0]]), (e = o[1])),
+                                (t[e] = function () {
+                                    t.push(
+                                        [e].concat(
+                                            Array.prototype.slice.call(
+                                                arguments,
+                                                0,
+                                            ),
+                                        ),
+                                    );
+                                });
+                        }
+                        ((p = t.createElement("script")).type =
+                            "text/javascript"),
+                            (p.crossOrigin = "anonymous"),
+                            (p.async = !0),
+                            (p.src =
+                                s.api_host.replace(
+                                    ".i.posthog.com",
+                                    "-assets.i.posthog.com",
+                                ) + "/static/array.js"),
+                            (r =
+                                t.getElementsByTagName(
+                                    "script",
+                                )[0]).parentNode.insertBefore(p, r);
+                        var u = e;
+                        for (
+                            void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
+                                u.people = u.people || [],
+                                u.toString = function (t) {
+                                    var e = "posthog";
+                                    return (
+                                        "posthog" !== a && (e += "." + a),
+                                        t || (e += " (stub)"),
+                                        e
+                                    );
+                                },
+                                u.people.toString = function () {
+                                    return u.toString(1) + ".people (stub)";
+                                },
+                                o =
+                                    "init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug xs getPageViewId captureTraceFeedback captureTraceMetric".split(
+                                        " ",
+                                    ),
+                                n = 0;
+                            n < o.length;
+                            n++
+                        )
+                            g(u, o[n]);
+                        e._i.push([i, s, a]);
+                    }),
+                    (e.__SV = 1));
+            })(document, window.posthog || []);
+            posthog.init("phc_xAvL2Iq4tFmANRE7kzbKwaSqp1HJjN7x48s3vr0CMjs", {
+                api_host: "https://us.i.posthog.com",
+                person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well,
+                session_recording: {
+                    recordCrossOriginIframes: true,
+                    capturePerformance: false,
+                },
+            });
+        </script>
+    </body>
+</html>
+
+
+/app/frontend/tailwind.config.js
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+    darkMode: ["class"],
+    content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./public/index.html"
+  ],
+  theme: {
+        extend: {
+                borderRadius: {
+                        lg: 'var(--radius)',
+                        md: 'calc(var(--radius) - 2px)',
+                        sm: 'calc(var(--radius) - 4px)'
+                },
+                colors: {
+                        background: 'hsl(var(--background))',
+                        foreground: 'hsl(var(--foreground))',
+                        card: {
+                                DEFAULT: 'hsl(var(--card))',
+                                foreground: 'hsl(var(--card-foreground))'
+                        },
+                        popover: {
+                                DEFAULT: 'hsl(var(--popover))',
+                                foreground: 'hsl(var(--popover-foreground))'
+                        },
+                        primary: {
+                                DEFAULT: 'hsl(var(--primary))',
+                                foreground: 'hsl(var(--primary-foreground))'
+                        },
+                        secondary: {
+                                DEFAULT: 'hsl(var(--secondary))',
+                                foreground: 'hsl(var(--secondary-foreground))'
+                        },
+                        muted: {
+                                DEFAULT: 'hsl(var(--muted))',
+                                foreground: 'hsl(var(--muted-foreground))'
+                        },
+                        accent: {
+                                DEFAULT: 'hsl(var(--accent))',
+                                foreground: 'hsl(var(--accent-foreground))'
+                        },
+                        destructive: {
+                                DEFAULT: 'hsl(var(--destructive))',
+                                foreground: 'hsl(var(--destructive-foreground))'
+                        },
+                        border: 'hsl(var(--border))',
+                        input: 'hsl(var(--input))',
+                        ring: 'hsl(var(--ring))',
+                        chart: {
+                                '1': 'hsl(var(--chart-1))',
+                                '2': 'hsl(var(--chart-2))',
+                                '3': 'hsl(var(--chart-3))',
+                                '4': 'hsl(var(--chart-4))',
+                                '5': 'hsl(var(--chart-5))'
+                        }
+                },
+                keyframes: {
+                        'accordion-down': {
+                                from: {
+                                        height: '0'
+                                },
+                                to: {
+                                        height: 'var(--radix-accordion-content-height)'
+                                }
+                        },
+                        'accordion-up': {
+                                from: {
+                                        height: 'var(--radix-accordion-content-height)'
+                                },
+                                to: {
+                                        height: '0'
+                                }
+                        }
+                },
+                animation: {
+                        'accordion-down': 'accordion-down 0.2s ease-out',
+                        'accordion-up': 'accordion-up 0.2s ease-out'
+                }
+        }
+  },
+  plugins: [require("tailwindcss-animate")],
+};
+
+/app/frontend/src/lib/utils.js
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}
+
+
+/app/frontend/src/components/ui/sonner.jsx
+import { useTheme } from "next-themes"
+import { Toaster as Sonner, toast } from "sonner"
+
+const Toaster = ({
+  ...props
+}) => {
+  const { theme = "system" } = useTheme()
+
+  return (
+    <Sonner
+      theme={theme}
+      className="toaster group"
+      toastOptions={{
+        classNames: {
+          toast:
+            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
+          description: "group-[.toast]:text-muted-foreground",
+          actionButton:
+            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
+          cancelButton:
+            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
+        },
+      }}
+      {...props} />
+  );
+}
+
+export { Toaster, toast }
+
+
+/app/frontend/src/components/ui/button.jsx
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils"
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+        outline:
+          "border border-input shadow-sm hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-9 px-4 py-2",
+        sm: "h-8 rounded-md px-3 text-xs",
+        lg: "h-10 rounded-md px-8",
+        icon: "h-9 w-9",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
+
+const Button = React.forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
+  const Comp = asChild ? Slot : "button"
+  return (
+    <Comp
+      className={cn(buttonVariants({ variant, size, className }))}
+      ref={ref}
+      {...props} />
+  );
+})
+Button.displayName = "Button"
+
+export { Button, buttonVariants }
+
+
+/app/frontend/src/index.js
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "@/index.css";
+import App from "@/App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);
+
+
+/app/frontend/public/index.html
+
+"<!doctype html>
+<html lang=\"en\">
+    <head>
+        <meta charset=\"utf-8\" />
+        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
+        <meta name=\"theme-color\" content=\"#0043CE\" />
+        <meta name=\"description\" content=\"BMS — Building Management System\" />
+        <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />
+        <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />
+        <link href=\"https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap\" rel=\"stylesheet\" />
+        <title>BMS — Building Management System</title>
+        <script>window.addEventListener(\"error\",function(e){if(e.error instanceof DOMException&&e.error.name===\"DataCloneError\"&&e.message&&e.message.includes(\"PerformanceServerTiming\")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
+        <script src=\"https://assets.emergent.sh/scripts/emergent-main.js\"></script>
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id=\"root\"></div>
+        <a
+            id=\"emergent-badge\"
+            target=\"_blank\"
+            href=\"https://app.emergent.sh/?utm_source=emergent-badge\"
+            style=\"display: inline-flex !important; box-sizing: border-box; width: 178px; height: 40px; padding: 8px 12px; align-items: center !important; gap: 8px; border-radius: 50px !important; background: #000 !important; position: fixed !important; bottom: 16px; right: 16px; text-decoration: none; font-family: 'IBM Plex Sans', sans-serif !important; font-size: 12px !important; z-index: 9999 !important;\"
+        >
+            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\"><path d=\"M15.5702 8.13142C15.7729 8.0412 16.0007 8.18878 15.9892 8.4103C15.8374 11.3192 14.0965 14.0405 11.2531 15.3065C8.40964 16.5725 5.2224 16.0453 2.95912 14.2117C2.78676 14.072 2.82955 13.804 3.03219 13.7137L4.95677 12.8568C5.04866 12.8159 5.15446 12.823 5.24204 12.8725C6.73377 13.7153 8.59176 13.8649 10.2772 13.1145C11.9626 12.3641 13.0947 10.8833 13.4665 9.21075C13.4883 9.11256 13.5539 9.02918 13.6457 8.98827L15.5702 8.13142Z\" fill=\"white\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M15.3066 4.74698L15.5067 5.19653C15.5759 5.35178 15.5061 5.53366 15.3508 5.60278L1.29992 11.8586C1.14467 11.9278 0.962794 11.8579 0.893675 11.7027L0.701732 11.2716L0.693457 11.2531C-1.10317 7.21778 0.711626 2.49007 4.74692 0.693443C8.78221 -1.10318 13.51 0.711693 15.3066 4.74698ZM2.82356 8.55367C2.63552 8.63739 2.41991 8.51617 2.40853 8.31065C2.28373 6.05724 3.53858 3.85787 5.72286 2.88536C7.90715 1.91286 10.3813 2.45199 11.9724 4.05256C12.1175 4.19854 12.0633 4.43988 11.8753 4.5236L2.82356 8.55367Z\" fill=\"white\"/></svg>
+            <p style=\"color: #FFF !important; font-family: 'IBM Plex Sans', sans-serif !important; font-size: 13px !important; font-weight: 600 !important; line-height: 20px !important; margin: 0 !important; white-space: nowrap !important;\">Made with Emergent</p>
+        </a>
+    </body>
+</html>
+"
+
+
+/app/frontend/tailwind.config.js
+"/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: [\"class\"],
+  content: [\"./src/**/*.{js,jsx,ts,tsx}\", \"./public/index.html\"],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['\"IBM Plex Sans\"', \"sans-serif\"],
+        display: ['\"Outfit\"', \"sans-serif\"],
+        mono: ['\"IBM Plex Mono\"', \"monospace\"],
+      },
+      borderRadius: {
+        lg: \"var(--radius)\",
+        md: \"calc(var(--radius) - 2px)\",
+        sm: \"calc(var(--radius) - 4px)\",
+      },
+      colors: {
+        background: \"hsl(var(--background))\",
+        foreground: \"hsl(var(--foreground))\",
+        card: {
+          DEFAULT: \"hsl(var(--card))\",
+          foreground: \"hsl(var(--card-foreground))\",
+        },
+        popover: {
+          DEFAULT: \"hsl(var(--popover))\",
+          foreground: \"hsl(var(--popover-foreground))\",
+        },
+        primary: {
+          DEFAULT: \"hsl(var(--primary))\",
+          foreground: \"hsl(var(--primary-foreground))\",
+        },
+        secondary: {
+          DEFAULT: \"hsl(var(--secondary))\",
+          foreground: \"hsl(var(--secondary-foreground))\",
+        },
+        muted: {
+          DEFAULT: \"hsl(var(--muted))\",
+          foreground: \"hsl(var(--muted-foreground))\",
+        },
+        accent: {
+          DEFAULT: \"hsl(var(--accent))\",
+          foreground: \"hsl(var(--accent-foreground))\",
+        },
+        destructive: {
+          DEFAULT: \"hsl(var(--destructive))\",
+          foreground: \"hsl(var(--destructive-foreground))\",
+        },
+        border: \"hsl(var(--border))\",
+        input: \"hsl(var(--input))\",
+        ring: \"hsl(var(--ring))\",
+        brand: {
+          DEFAULT: \"#0043CE\",
+          hover: \"#00329B\",
+          50: \"#EEF3FF\",
+          100: \"#DCE7FF\",
+        },
+        safety: {
+          DEFAULT: \"#FF3E00\",
+          hover: \"#CC3200\",
+        },
+        chart: {
+          1: \"hsl(var(--chart-1))\",
+          2: \"hsl(var(--chart-2))\",
+          3: \"hsl(var(--chart-3))\",
+          4: \"hsl(var(--chart-4))\",
+          5: \"hsl(var(--chart-5))\",
+        },
+      },
+      keyframes: {
+        \"accordion-down\": {
+          from: { height: \"0\" },
+          to: { height: \"var(--radix-accordion-content-height)\" },
+        },
+        \"accordion-up\": {
+          from: { height: \"var(--radix-accordion-content-height)\" },
+          to: { height: \"0\" },
+        },
+        \"fade-up\": {
+          from: { opacity: \"0\", transform: \"translateY(8px)\" },
+          to: { opacity: \"1\", transform: \"translateY(0)\" },
+        },
+      },
+      animation: {
+        \"accordion-down\": \"accordion-down 0.2s ease-out\",
+        \"accordion-up\": \"accordion-up 0.2s ease-out\",
+        \"fade-up\": \"fade-up 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both\",
+      },
+    },
+  },
+  plugins: [require(\"tailwindcss-animate\")],
+};
+"
+
+/app/frontend/src/index.css
+
+
+Action: file_editor create /app/frontend/src/index.css --file-text "@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 5%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 5%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 5%;
+    --primary: 219 100% 40%; /* Blueprint Blue #0043CE */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 14 100% 50%; /* Safety Orange #FF3E00 */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 219 100% 40%;
+    --radius: 0.125rem; /* sharp */
+    --chart-1: 219 100% 40%;
+    --chart-2: 14 100% 50%;
+    --chart-3: 142 71% 45%;
+    --chart-4: 48 96% 53%;
+    --chart-5: 222 47% 11%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html, body, #root {
+    @apply h-full;
+  }
+  body {
+    font-family: \"IBM Plex Sans\", sans-serif;
+    @apply bg-background text-foreground antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: \"ss01\", \"ss02\";
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: \"Outfit\", sans-serif;
+    letter-spacing: -0.02em;
+  }
+  .font-display { font-family: \"Outfit\", sans-serif; }
+  .font-mono { font-family: \"IBM Plex Mono\", monospace; }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-[11px] tracking-[0.22em] uppercase font-semibold text-slate-500;
+  }
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(15,23,42,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15,23,42,0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-[#0043CE] text-white px-5 h-10 rounded-none text-sm font-medium hover:bg-[#00329B] transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 bg-white text-slate-900 border border-slate-300 px-5 h-10 rounded-none text-sm font-medium hover:bg-slate-50 transition-colors;
+  }
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 bg-[#FF3E00] text-white px-5 h-10 rounded-none text-sm font-medium hover:bg-[#CC3200] transition-colors;
+  }
+  .bms-card {
+    @apply bg-white border border-slate-200 rounded-none;
+  }
+  .bms-input {
+    @apply w-full h-11 px-3 rounded-none border border-slate-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#0043CE] focus:border-transparent transition-all;
+  }
+  .bms-label {
+    @apply block text-[11px] tracking-[0.14em] uppercase font-semibold text-slate-700 mb-2;
+  }
+}
+
+@layer base {
+  [data-debug-wrapper=\"true\"] { display: contents !important; }
+  [data-debug-wrapper=\"true\"] > * {
+    margin-left: inherit; margin-right: inherit; margin-top: inherit; margin-bottom: inherit;
+    padding-left: inherit; padding-right: inherit; padding-top: inherit; padding-bottom: inherit;
+    column-gap: inherit; row-gap: inherit; gap: inherit;
+    border-left-width: inherit; border-right-width: inherit; border-top-width: inherit; border-bottom-width: inherit;
+    border-left-style: inherit; border-right-style: inherit; border-top-style: inherit; border-bottom-style: inherit;
+    border-left-color: inherit; border-right-color: inherit; border-top-color: inherit; border-bottom-color: inherit;
+  }
+}
+"
+Observation: Overwrite successful: /app/frontend/src/index.css
+
+
+
+Action: file_editor create /app/frontend/src/App.css --file-text ".App { min-height: 100vh; }
+"
+Observation: Overwrite successful: /app/frontend/src/App.css
+
+
+
+Action: file_editor create /app/frontend/src/api/endpoints.js --file-text "// Centralised endpoint catalogue for the BMS REST API.
+export const EP = {
+  auth: {
+    login: \"/auth/login\",
+    register: \"/auth/register\",
+    refresh: \"/auth/refresh\",
+    forgot: \"/auth/forgot-password\",
+    reset: \"/auth/reset-password\",
+    verifyEmail: \"/auth/verify-email\",
+    me: \"/auth/me\",
+    changePassword: \"/auth/change-password\",
+  },
+  buildings: {
+    list: \"/buildings\",
+    detail: (id) => `/buildings/${id}`,
+    wings: (id) => `/buildings/${id}/wings`,
+    units: (id) => `/buildings/${id}/units`,
+  },
+  users: {
+    list: \"/users\",
+    detail: (id) => `/users/${id}`,
+  },
+  billing: {
+    summary: \"/billing/summary\",
+    list: \"/billing\",
+    detail: (id) => `/billing/${id}`,
+    pay: (id) => `/billing/${id}/pay`,
+  },
+  parking: {
+    slots: \"/parking/slots\",
+    bookings: \"/parking/bookings\",
+    book: \"/parking/book\",
+    cancel: (id) => `/parking/bookings/${id}/cancel`,
+  },
+  visitors: {
+    list: \"/visitors\",
+    report: \"/visitors/report\",
+    checkin: (id) => `/visitors/${id}/checkin`,
+    checkout: (id) => `/visitors/${id}/checkout`,
+  },
+  canteen: {
+    menu: \"/canteen/menu\",
+    menuItem: (id) => `/canteen/menu/${id}`,
+    orders: \"/canteen/orders\",
+    orderStatus: (id) => `/canteen/orders/${id}/status`,
+  },
+  complaints: {
+    list: \"/complaints\",
+    assign: (id) => `/complaints/${id}/assign`,
+    status: (id) => `/complaints/${id}/status`,
+    feedback: (id) => `/complaints/${id}/feedback`,
+  },
+  voting: {
+    list: \"/voting\",
+    detail: (id) => `/voting/${id}`,
+    vote: (id) => `/voting/${id}/vote`,
+    close: (id) => `/voting/${id}/close`,
+  },
+  notices: {
+    list: \"/notices\",
+    detail: (id) => `/notices/${id}`,
+  },
+  dashboard: {
+    superAdmin: \"/dashboard/super-admin\",
+    buildingAdmin: \"/dashboard/building-admin\",
+    resident: \"/dashboard/resident\",
+  },
+};
+"
+Observation: Create successful: /app/frontend/src/api/endpoints.js
+
+
+Action: file_editor create /app/frontend/src/api/mockAdapter.js --file-text "// In-memory mock adapter for axios. Enabled when localStorage \"bms_demo_mode\" === \"true\".
+// Lets the entire app be explorable without a live BMS backend.
+import { v4 as uuid } from \"./uuid\";
+
+const LS_KEY = \"bms_mock_db_v1\";
+
+const seed = () => ({
+  users: [
+    { userId: \"u-1\", email: \"superadmin@bms.com\", password: \"Admin@123\", firstName: \"Alex\", lastName: \"Reeves\", role: \"SuperAdmin\", phone: \"+1-555-0001\", isActive: true, createdAt: new Date().toISOString() },
+    { userId: \"u-2\", email: \"admin@bms.com\", password: \"Admin@123\", firstName: \"Priya\", lastName: \"Kapoor\", role: \"BuildingAdmin\", buildingId: \"b-1\", phone: \"+1-555-0002\", isActive: true, createdAt: new Date().toISOString() },
+    { userId: \"u-3\", email: \"resident@bms.com\", password: \"Admin@123\", firstName: \"Jordan\", lastName: \"Chen\", role: \"Resident\", buildingId: \"b-1\", unitId: \"un-1\", phone: \"+1-555-0003\", isActive: true, createdAt: new Date().toISOString() },
+    { userId: \"u-4\", email: \"security@bms.com\", password: \"Admin@123\", firstName: \"Marco\", lastName: \"Diaz\", role: \"SecurityStaff\", buildingId: \"b-1\", isActive: true, createdAt: new Date().toISOString() },
+  ],
+  buildings: [
+    { buildingId: \"b-1\", buildingName: \"Sunset Apartments\", buildingType: \"Residential\", address: \"123 Main St\", city: \"New York\", state: \"NY\", zipCode: \"10001\", totalUnits: 48, isActive: true, createdAt: new Date().toISOString() },
+    { buildingId: \"b-2\", buildingName: \"Harbor View Tower\", buildingType: \"Mixed\", address: \"45 Harbor Rd\", city: \"Boston\", state: \"MA\", zipCode: \"02101\", totalUnits: 72, isActive: true, createdAt: new Date().toISOString() },
+  ],
+  wings: [
+    { wingId: \"w-1\", buildingId: \"b-1\", wingName: \"A Wing\", totalFloors: 8 },
+    { wingId: \"w-2\", buildingId: \"b-1\", wingName: \"B Wing\", totalFloors: 8 },
+  ],
+  units: [
+    { unitId: \"un-1\", buildingId: \"b-1\", wingId: \"w-1\", unitNumber: \"A-501\", floor: 5, unitType: \"2BHK\", area: 980, status: \"Occupied\" },
+    { unitId: \"un-2\", buildingId: \"b-1\", wingId: \"w-1\", unitNumber: \"A-502\", floor: 5, unitType: \"3BHK\", area: 1240, status: \"Vacant\" },
+    { unitId: \"un-3\", buildingId: \"b-1\", wingId: \"w-2\", unitNumber: \"B-302\", floor: 3, unitType: \"1BHK\", area: 620, status: \"Occupied\" },
+  ],
+  bills: [
+    { billId: \"bl-1\", buildingId: \"b-1\", unitId: \"un-1\", userId: \"u-3\", billType: \"Maintenance\", billMonth: \"2026-02-01\", amount: 350, taxAmount: 28, totalAmount: 378, dueDate: \"2026-02-28\", status: \"Pending\", createdAt: new Date().toISOString() },
+    { billId: \"bl-2\", buildingId: \"b-1\", unitId: \"un-1\", userId: \"u-3\", billType: \"Electricity\", billMonth: \"2026-01-01\", amount: 124, taxAmount: 10, totalAmount: 134, dueDate: \"2026-01-28\", status: \"Paid\", createdAt: new Date().toISOString() },
+  ],
+  parkingSlots: [
+    { slotId: \"ps-1\", buildingId: \"b-1\", slotNumber: \"P-001\", slotType: \"Car\", floor: \"B1\", status: \"Available\" },
+    { slotId: \"ps-2\", buildingId: \"b-1\", slotNumber: \"P-002\", slotType: \"Car\", floor: \"B1\", status: \"Occupied\" },
+    { slotId: \"ps-3\", buildingId: \"b-1\", slotNumber: \"P-003\", slotType: \"Bike\", floor: \"B1\", status: \"Available\" },
+    { slotId: \"ps-4\", buildingId: \"b-1\", slotNumber: \"P-004\", slotType: \"Car\", floor: \"B2\", status: \"Available\" },
+  ],
+  parkingBookings: [],
+  visitors: [
+    { visitorId: \"v-1\", buildingId: \"b-1\", userId: \"u-3\", visitorName: \"John Smith\", visitorPhone: \"+1-555-1234\", purpose: \"Meeting\", visitorType: \"Personal\", expectedArrival: new Date().toISOString(), status: \"Expected\", createdAt: new Date().toISOString() },
+  ],
+  canteenMenu: [
+    { menuId: \"m-1\", itemName: \"Grilled Sandwich\", category: \"Main\", price: 6.5, isAvailable: true, description: \"Multigrain, cheese, tomato\" },
+    { menuId: \"m-2\", itemName: \"Caesar Salad\", category: \"Salad\", price: 7.25, isAvailable: true, description: \"Romaine, parmesan, croutons\" },
+    { menuId: \"m-3\", itemName: \"Espresso\", category: \"Beverage\", price: 2.75, isAvailable: true, description: \"Double shot\" },
+    { menuId: \"m-4\", itemName: \"Margherita Pizza\", category: \"Main\", price: 9.0, isAvailable: false, description: \"Wood-fired\" },
+  ],
+  canteenOrders: [],
+  complaints: [
+    { complaintId: \"c-1\", buildingId: \"b-1\", userId: \"u-3\", title: \"Leaking tap\", description: \"Kitchen tap leaks continuously.\", category: \"Plumbing\", priority: \"Medium\", status: \"Open\", createdAt: new Date().toISOString() },
+  ],
+  polls: [
+    { pollId: \"pl-1\", buildingId: \"b-1\", title: \"New gym equipment vote\", description: \"Select your preferred vendor.\", status: \"Active\", createdAt: new Date().toISOString(), closesAt: new Date(Date.now()+7*864e5).toISOString(), options: [{ optionId: \"op-1\", text: \"Vendor A\", votes: 12 }, { optionId: \"op-2\", text: \"Vendor B\", votes: 8 }, { optionId: \"op-3\", text: \"Vendor C\", votes: 5 }] },
+  ],
+  notices: [
+    { noticeId: \"n-1\", buildingId: \"b-1\", title: \"Water supply interruption\", content: \"Scheduled maintenance on Saturday 10am-2pm.\", category: \"Maintenance\", priority: \"High\", createdAt: new Date().toISOString() },
+  ],
+});
+
+const load = () => {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) {
+      const s = seed();
+      localStorage.setItem(LS_KEY, JSON.stringify(s));
+      return s;
+    }
+    return JSON.parse(raw);
+  } catch { return seed(); }
+};
+const save = (db) => localStorage.setItem(LS_KEY, JSON.stringify(db));
+
+const ok = (data) => ({ data: { success: true, data }, status: 200, statusText: \"OK\", headers: {}, config: {} });
+const bad = (msg, status=400) => { const e = new Error(msg); e.response = { status, data: { success: false, message: msg } }; throw e; };
+
+const match = (url, pattern) => {
+  const re = new RegExp(\"^\" + pattern.replace(/:[a-z]+/gi, \"([^/]+)\") + \"/?$\");
+  const m = url.match(re);
+  return m ? m.slice(1) : null;
+};
+
+export const isDemo = () => localStorage.getItem(\"bms_demo_mode\") === \"true\";
+
+export async function mockAdapter(config) {
+  const db = load();
+  const url = config.url.replace(/^.*\/api/, \"\");
+  const method = (config.method || \"get\").toLowerCase();
+  const body = config.data ? (typeof config.data === \"string\" ? JSON.parse(config.data) : config.data) : {};
+  await new Promise(r => setTimeout(r, 180));
+
+  // AUTH
+  if (url === \"/auth/login\" && method === \"post\") {
+    const u = db.users.find(x => x.email === body.email && x.password === body.password && x.isActive);
+    if (!u) bad(\"Invalid credentials\", 401);
+    const { password, ...safe } = u;
+    return ok({ user: safe, accessToken: \"demo.\" + u.userId, refreshToken: \"demo.r.\" + u.userId });
+  }
+  if (url === \"/auth/register\" && method === \"post\") {
+    if (db.users.some(x => x.email === body.email)) bad(\"Email already registered\", 409);
+    const user = { userId: uuid(), isActive: true, createdAt: new Date().toISOString(), role: body.role || \"Resident\", ...body };
+    db.users.push(user); save(db);
+    const { password, ...safe } = user;
+    return ok({ user: safe, accessToken: \"demo.\" + user.userId, refreshToken: \"demo.r.\" + user.userId });
+  }
+  if (url === \"/auth/me\" && method === \"get\") {
+    const token = (config.headers?.Authorization || \"\").replace(\"Bearer \", \"\");
+    const id = token.replace(\"demo.\", \"\");
+    const u = db.users.find(x => x.userId === id);
+    if (!u) bad(\"Unauthorized\", 401);
+    const { password, ...safe } = u;
+    return ok(safe);
+  }
+  if (url === \"/auth/change-password\" && method === \"put\") return ok({ updated: true });
+  if (url === \"/auth/forgot-password\" && method === \"post\") return ok({ sent: true });
+  if (url === \"/auth/refresh\" && method === \"post\") return ok({ accessToken: body.refreshToken?.replace(\"demo.r.\", \"demo.\") });
+
+  // DASHBOARDS
+  if (url === \"/dashboard/super-admin\" && method === \"get\") {
+    return ok({ totalBuildings: db.buildings.length, totalUsers: db.users.length, totalUnits: db.units.length, openComplaints: db.complaints.filter(c=>c.status!==\"Resolved\").length, pendingBills: db.bills.filter(b=>b.status!==\"Paid\").length, recentActivity: db.notices.slice(0,5) });
+  }
+  if (url === \"/dashboard/building-admin\" && method === \"get\") {
+    return ok({ occupancy: 76, openComplaints: db.complaints.filter(c=>c.status!==\"Resolved\").length, pendingBills: db.bills.filter(b=>b.status!==\"Paid\").length, visitorsToday: db.visitors.length, revenueThisMonth: 28400 });
+  }
+  if (url === \"/dashboard/resident\" && method === \"get\") {
+    return ok({ pendingBills: db.bills.filter(b=>b.status!==\"Paid\").length, activeComplaints: db.complaints.filter(c=>c.status!==\"Resolved\").length, upcomingVisitors: db.visitors.length, myParking: 1 });
+  }
+
+  // BUILDINGS
+  if (url === \"/buildings\" && method === \"get\") return ok(db.buildings);
+  if (url === \"/buildings\" && method === \"post\") { const b = { buildingId: uuid(), isActive: true, createdAt: new Date().toISOString(), totalUnits: 0, ...body }; db.buildings.push(b); save(db); return ok(b); }
+  let m;
+  if ((m = match(url, \"/buildings/:id\")) && method === \"get\") { const b = db.buildings.find(x=>x.buildingId===m[0]); return b ? ok(b) : bad(\"Not found\", 404); }
+  if ((m = match(url, \"/buildings/:id\")) && method === \"put\") { const i = db.buildings.findIndex(x=>x.buildingId===m[0]); if (i<0) bad(\"Not found\",404); db.buildings[i] = { ...db.buildings[i], ...body }; save(db); return ok(db.buildings[i]); }
+  if ((m = match(url, \"/buildings/:id\")) && method === \"delete\") { const i = db.buildings.findIndex(x=>x.buildingId===m[0]); if (i<0) bad(\"Not found\",404); db.buildings[i].isActive=false; save(db); return ok({ deactivated:true }); }
+  if ((m = match(url, \"/buildings/:id/wings\")) && method === \"get\") return ok(db.wings.filter(w=>w.buildingId===m[0]));
+  if ((m = match(url, \"/buildings/:id/wings\")) && method === \"post\") { const w = { wingId: uuid(), buildingId: m[0], ...body }; db.wings.push(w); save(db); return ok(w); }
+  if ((m = match(url, \"/buildings/:id/units\")) && method === \"get\") return ok(db.units.filter(u=>u.buildingId===m[0]));
+  if ((m = match(url, \"/buildings/:id/units\")) && method === \"post\") { const u = { unitId: uuid(), buildingId: m[0], status: \"Vacant\", ...body }; db.units.push(u); save(db); return ok(u); }
+
+  // USERS
+  if (url === \"/users\" && method === \"get\") return ok(db.users.map(({password, ...u}) => u));
+  if (url === \"/users\" && method === \"post\") { const u = { userId: uuid(), isActive:true, createdAt: new Date().toISOString(), password: \"Admin@123\", ...body }; db.users.push(u); save(db); const { password, ...safe } = u; return ok(safe); }
+  if ((m = match(url, \"/users/:id\")) && method === \"get\") { const u = db.users.find(x=>x.userId===m[0]); const { password, ...safe } = u||{}; return u ? ok(safe) : bad(\"Not found\",404); }
+  if ((m = match(url, \"/users/:id\")) && method === \"put\") { const i = db.users.findIndex(x=>x.userId===m[0]); if(i<0) bad(\"Not found\",404); db.users[i] = { ...db.users[i], ...body }; save(db); const {password, ...safe} = db.users[i]; return ok(safe); }
+  if ((m = match(url, \"/users/:id\")) && method === \"delete\") { const i = db.users.findIndex(x=>x.userId===m[0]); if(i<0) bad(\"Not found\",404); db.users[i].isActive=false; save(db); return ok({ deactivated:true }); }
+
+  // BILLING
+  if (url === \"/billing/summary\" && method === \"get\") return ok({ totalCollected: db.bills.filter(b=>b.status===\"Paid\").reduce((a,b)=>a+b.totalAmount,0), totalPending: db.bills.filter(b=>b.status!==\"Paid\").reduce((a,b)=>a+b.totalAmount,0), countPaid: db.bills.filter(b=>b.status===\"Paid\").length, countPending: db.bills.filter(b=>b.status!==\"Paid\").length });
+  if (url === \"/billing\" && method === \"get\") return ok(db.bills);
+  if (url === \"/billing\" && method === \"post\") { const b = { billId: uuid(), status: \"Pending\", createdAt: new Date().toISOString(), totalAmount: (parseFloat(body.amount)||0)+(parseFloat(body.taxAmount)||0), ...body }; db.bills.push(b); save(db); return ok(b); }
+  if ((m = match(url, \"/billing/:id\")) && method === \"get\") { const b = db.bills.find(x=>x.billId===m[0]); return b ? ok(b) : bad(\"Not found\",404); }
+  if ((m = match(url, \"/billing/:id/pay\")) && method === \"post\") { const i = db.bills.findIndex(x=>x.billId===m[0]); if(i<0) bad(\"Not found\",404); db.bills[i].status = \"Paid\"; db.bills[i].paidAt = new Date().toISOString(); save(db); return ok(db.bills[i]); }
+
+  // PARKING
+  if (url === \"/parking/slots\" && method === \"get\") return ok(db.parkingSlots);
+  if (url === \"/parking/slots\" && method === \"post\") { const s = { slotId: uuid(), status: \"Available\", ...body }; db.parkingSlots.push(s); save(db); return ok(s); }
+  if (url === \"/parking/bookings\" && method === \"get\") return ok(db.parkingBookings);
+  if (url === \"/parking/book\" && method === \"post\") { const b = { bookingId: uuid(), status: \"Active\", createdAt: new Date().toISOString(), ...body }; db.parkingBookings.push(b); const i = db.parkingSlots.findIndex(s=>s.slotId===body.slotId); if(i>=0) db.parkingSlots[i].status=\"Occupied\"; save(db); return ok(b); }
+  if ((m = match(url, \"/parking/bookings/:id/cancel\")) && method === \"put\") { const i = db.parkingBookings.findIndex(x=>x.bookingId===m[0]); if(i<0) bad(\"Not found\",404); db.parkingBookings[i].status=\"Cancelled\"; const si = db.parkingSlots.findIndex(s=>s.slotId===db.parkingBookings[i].slotId); if(si>=0) db.parkingSlots[si].status=\"Available\"; save(db); return ok(db.parkingBookings[i]); }
+
+  // VISITORS
+  if (url === \"/visitors\" && method === \"get\") return ok(db.visitors);
+  if (url === \"/visitors\" && method === \"post\") { const v = { visitorId: uuid(), status:\"Expected\", createdAt: new Date().toISOString(), qrCode: \"data:image/svg+xml;base64,\"+btoa('<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"120\" height=\"120\"><rect width=\"120\" height=\"120\" fill=\"#0043CE\"/><text x=\"50%\" y=\"50%\" fill=\"#fff\" font-size=\"12\" text-anchor=\"middle\" dy=\".3em\">QR '+uuid().slice(0,4)+'</text></svg>'), ...body }; db.visitors.push(v); save(db); return ok(v); }
+  if (url === \"/visitors/report\" && method === \"get\") return ok({ today: db.visitors.length, thisWeek: db.visitors.length, thisMonth: db.visitors.length });
+  if ((m = match(url, \"/visitors/:id/checkin\")) && method === \"post\") { const i = db.visitors.findIndex(x=>x.visitorId===m[0]); if(i<0) bad(\"Not found\",404); db.visitors[i].status=\"CheckedIn\"; db.visitors[i].checkinTime=new Date().toISOString(); save(db); return ok(db.visitors[i]); }
+  if ((m = match(url, \"/visitors/:id/checkout\")) && method === \"post\") { const i = db.visitors.findIndex(x=>x.visitorId===m[0]); if(i<0) bad(\"Not found\",404); db.visitors[i].status=\"CheckedOut\"; db.visitors[i].checkoutTime=new Date().toISOString(); save(db); return ok(db.visitors[i]); }
+
+  // CANTEEN
+  if (url === \"/canteen/menu\" && method === \"get\") return ok(db.canteenMenu);
+  if (url === \"/canteen/menu\" && method === \"post\") { const m2 = { menuId: uuid(), isAvailable:true, ...body }; db.canteenMenu.push(m2); save(db); return ok(m2); }
+  if ((m = match(url, \"/canteen/menu/:id\")) && method === \"put\") { const i = db.canteenMenu.findIndex(x=>x.menuId===m[0]); if(i<0) bad(\"Not found\",404); db.canteenMenu[i]={...db.canteenMenu[i], ...body}; save(db); return ok(db.canteenMenu[i]); }
+  if (url === \"/canteen/orders\" && method === \"get\") return ok(db.canteenOrders);
+  if (url === \"/canteen/orders\" && method === \"post\") { const items = (body.items||[]).map(it=>{ const mi = db.canteenMenu.find(m=>m.menuId===it.menuId); return { ...it, itemName: mi?.itemName, price: mi?.price, lineTotal: (mi?.price||0)*it.quantity }; }); const total = items.reduce((a,b)=>a+b.lineTotal,0); const o = { orderId: uuid(), status:\"Placed\", createdAt: new Date().toISOString(), items, totalAmount: total, ...body }; db.canteenOrders.push(o); save(db); return ok(o); }
+  if ((m = match(url, \"/canteen/orders/:id/status\")) && method === \"put\") { const i = db.canteenOrders.findIndex(x=>x.orderId===m[0]); if(i<0) bad(\"Not found\",404); db.canteenOrders[i].status=body.status; save(db); return ok(db.canteenOrders[i]); }
+
+  // COMPLAINTS
+  if (url === \"/complaints\" && method === \"get\") return ok(db.complaints);
+  if (url === \"/complaints\" && method === \"post\") { const c = { complaintId: uuid(), status:\"Open\", createdAt: new Date().toISOString(), ...body }; db.complaints.push(c); save(db); return ok(c); }
+  if ((m = match(url, \"/complaints/:id/assign\")) && method === \"put\") { const i = db.complaints.findIndex(x=>x.complaintId===m[0]); if(i<0) bad(\"Not found\",404); db.complaints[i].assignedTo = body.assignedTo; db.complaints[i].status = \"Assigned\"; save(db); return ok(db.complaints[i]); }
+  if ((m = match(url, \"/complaints/:id/status\")) && method === \"put\") { const i = db.complaints.findIndex(x=>x.complaintId===m[0]); if(i<0) bad(\"Not found\",404); db.complaints[i].status=body.status; save(db); return ok(db.complaints[i]); }
+  if ((m = match(url, \"/complaints/:id/feedback\")) && method === \"post\") { const i = db.complaints.findIndex(x=>x.complaintId===m[0]); if(i<0) bad(\"Not found\",404); db.complaints[i].rating=body.rating; db.complaints[i].feedback=body.feedback; save(db); return ok(db.complaints[i]); }
+
+  // VOTING
+  if (url === \"/voting\" && method === \"get\") return ok(db.polls);
+  if (url === \"/voting\" && method === \"post\") { const p = { pollId: uuid(), status:\"Active\", createdAt: new Date().toISOString(), options: (body.options||[]).map(t=>({ optionId: uuid(), text:t, votes:0 })), ...body, options: (body.options||[]).map(t=>({ optionId: uuid(), text:t, votes:0 })) }; db.polls.push(p); save(db); return ok(p); }
+  if ((m = match(url, \"/voting/:id\")) && method === \"get\") { const p = db.polls.find(x=>x.pollId===m[0]); return p ? ok(p) : bad(\"Not found\",404); }
+  if ((m = match(url, \"/voting/:id/vote\")) && method === \"post\") { const i = db.polls.findIndex(x=>x.pollId===m[0]); if(i<0) bad(\"Not found\",404); const oi = db.polls[i].options.findIndex(o=>o.optionId===body.optionId); if(oi<0) bad(\"Option not found\",404); db.polls[i].options[oi].votes++; save(db); return ok(db.polls[i]); }
+  if ((m = match(url, \"/voting/:id/close\")) && method === \"put\") { const i = db.polls.findIndex(x=>x.pollId===m[0]); if(i<0) bad(\"Not found\",404); db.polls[i].status=\"Closed\"; save(db); return ok(db.polls[i]); }
+
+  // NOTICES
+  if (url === \"/notices\" && method === \"get\") return ok(db.notices);
+  if (url === \"/notices\" && method === \"post\") { const n = { noticeId: uuid(), createdAt: new Date().toISOString(), ...body }; db.notices.unshift(n); save(db); return ok(n); }
+  if ((m = match(url, \"/notices/:id\")) && method === \"put\") { const i = db.notices.findIndex(x=>x.noticeId===m[0]); if(i<0) bad(\"Not found\",404); db.notices[i] = { ...db.notices[i], ...body }; save(db); return ok(db.notices[i]); }
+  if ((m = match(url, \"/notices/:id\")) && method === \"delete\") { const i = db.notices.findIndex(x=>x.noticeId===m[0]); if(i<0) bad(\"Not found\",404); db.notices.splice(i,1); save(db); return ok({ deleted:true }); }
+
+  bad(\"Not implemented in demo mode: \" + method.toUpperCase() + \" \" + url, 404);
+}
+
+export function resetMockDb() { localStorage.removeItem(LS_KEY); load(); }
+"
+Observation: Create successful: /app/frontend/src/api/mockAdapter.js
+
+
+Action: file_editor create /app/frontend/src/api/uuid.js --file-text "export const v4 = () =>
+  \"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx\".replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === \"x\" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+"
+Observation: Create successful: /app/frontend/src/api/uuid.js
+
+
+Action: file_editor create /app/frontend/src/api/client.js --file-text "import axios from \"axios\";
+import { mockAdapter, isDemo } from \"./mockAdapter\";
+
+export const DEFAULT_API = \"http://localhost:3000/api\";
+const LS_API = \"bms_api_url\";
+const LS_TOKEN = \"bms_access_token\";
+const LS_REFRESH = \"bms_refresh_token\";
+
+export const getApiUrl = () => localStorage.getItem(LS_API) || DEFAULT_API;
+export const setApiUrl = (u) => localStorage.setItem(LS_API, u);
+
+export const getToken = () => localStorage.getItem(LS_TOKEN);
+export const setTokens = ({ accessToken, refreshToken }) => {
+  if (accessToken) localStorage.setItem(LS_TOKEN, accessToken);
+  if (refreshToken) localStorage.setItem(LS_REFRESH, refreshToken);
+};
+export const clearTokens = () => {
+  localStorage.removeItem(LS_TOKEN);
+  localStorage.removeItem(LS_REFRESH);
+};
+
+export const api = axios.create({
+  baseURL: getApiUrl(),
+  timeout: 15000,
+  headers: { \"Content-Type\": \"application/json\" },
+});
+
+// Before every request: refresh baseURL (user may change it), attach token, route to mock if demo.
+api.interceptors.request.use((config) => {
+  config.baseURL = getApiUrl();
+  const t = getToken();
+  if (t) config.headers.Authorization = `Bearer ${t}`;
+  if (isDemo()) config.adapter = mockAdapter;
+  return config;
+});
+
+let refreshing = null;
+api.interceptors.response.use(
+  (r) => r,
+  async (error) => {
+    const original = error.config || {};
+    if (error.response?.status === 401 && !original._retry && !isDemo()) {
+      original._retry = true;
+      try {
+        if (!refreshing) {
+          const refreshToken = localStorage.getItem(LS_REFRESH);
+          if (!refreshToken) throw error;
+          refreshing = axios.post(`${getApiUrl()}/auth/refresh`, { refreshToken }).finally(() => { refreshing = null; });
+        }
+        const res = await refreshing;
+        const newAccess = res.data?.data?.accessToken || res.data?.accessToken;
+        if (newAccess) {
+          setTokens({ accessToken: newAccess });
+          original.headers.Authorization = `Bearer ${newAccess}`;
+          return api(original);
+        }
+      } catch (e) {
+        clearTokens();
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
+// Helper: unwrap { success, data } envelope.
+export const unwrap = (res) => {
+  const payload = res?.data;
+  if (payload && typeof payload === \"object\" && \"data\" in payload) return payload.data;
+  return payload;
+};
+"
+Observation: Create successful: /app/frontend/src/api/client.js
+
+
+Now batch 2 — contexts, layout, shared components, and main App routing:
+Action: file_editor create /app/frontend/src/contexts/AuthContext.jsx --file-text "import React, { createContext, useContext, useEffect, useState, useCallback } from \"react\";
+import { api, setTokens, clearTokens, getToken } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+
+const AuthCtx = createContext(null);
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const loadMe = useCallback(async () => {
+    if (!getToken()) { setUser(null); setLoading(false); return; }
+    try {
+      const res = await api.get(EP.auth.me);
+      const u = res.data?.data || res.data;
+      setUser(u);
+    } catch {
+      clearTokens();
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { loadMe(); }, [loadMe]);
+
+  const login = async (email, password) => {
+    const res = await api.post(EP.auth.login, { email, password });
+    const payload = res.data?.data || res.data;
+    setTokens({ accessToken: payload.accessToken, refreshToken: payload.refreshToken });
+    setUser(payload.user);
+    return payload.user;
+  };
+
+  const register = async (form) => {
+    const res = await api.post(EP.auth.register, form);
+    const payload = res.data?.data || res.data;
+    if (payload.accessToken) setTokens({ accessToken: payload.accessToken, refreshToken: payload.refreshToken });
+    if (payload.user) setUser(payload.user);
+    return payload;
+  };
+
+  const logout = () => { clearTokens(); setUser(null); };
+
+  return (
+    <AuthCtx.Provider value={{ user, loading, login, logout, register, reload: loadMe }}>
+      {children}
+    </AuthCtx.Provider>
+  );
+};
+
+export const useAuth = () => useContext(AuthCtx);
+"
+Observation: Create successful: /app/frontend/src/contexts/AuthContext.jsx
+
+
+
+Action: file_editor create /app/frontend/src/components/ProtectedRoute.jsx --file-text "import React from \"react\";
+import { Navigate, useLocation } from \"react-router-dom\";
+import { useAuth } from \"@/contexts/AuthContext\";
+
+export default function ProtectedRoute({ children, roles }) {
+  const { user, loading } = useAuth();
+  const location = useLocation();
+
+  if (loading) {
+    return (
+      <div className=\"min-h-screen flex items-center justify-center bg-slate-50\" data-testid=\"auth-loading\">
+        <div className=\"font-mono text-xs tracking-[0.2em] uppercase text-slate-500\">Authenticating…</div>
+      </div>
+    );
+  }
+
+  if (!user) return <Navigate to=\"/login\" state={{ from: location }} replace />;
+
+  if (roles && roles.length && !roles.includes(user.role)) {
+    return (
+      <div className=\"min-h-screen flex items-center justify-center p-8\" data-testid=\"forbidden\">
+        <div className=\"max-w-md border border-slate-200 bg-white p-8\">
+          <div className=\"eyebrow mb-3\">Access Denied</div>
+          <h2 className=\"text-2xl font-display font-medium\">Insufficient permissions</h2>
+          <p className=\"text-sm text-slate-600 mt-3\">Your role <span className=\"font-mono text-brand\">{user.role}</span> does not have access to this area.</p>
+        </div>
+      </div>
+    );
+  }
+  return children;
+}
+"
+Observation: Create successful: /app/frontend/src/components/ProtectedRoute.jsx
+
+
+
+Action: file_editor create /app/frontend/src/components/Sidebar.jsx --file-text "import React from \"react\";
+import { NavLink } from \"react-router-dom\";
+import { useAuth } from \"@/contexts/AuthContext\";
+import {
+  LayoutDashboard, Building2, Users, Receipt, CarFront, UserCheck,
+  UtensilsCrossed, Wrench, Vote, Megaphone, Settings, X
+} from \"lucide-react\";
+import { cn } from \"@/lib/utils\";
+
+const ALL_ITEMS = [
+  { to: \"/app/dashboard\", label: \"Dashboard\", icon: LayoutDashboard, roles: [\"SuperAdmin\",\"BuildingAdmin\",\"SecurityStaff\",\"MaintenanceStaff\",\"CanteenStaff\",\"Resident\",\"Tenant\"] },
+  { to: \"/app/buildings\", label: \"Buildings\", icon: Building2, roles: [\"SuperAdmin\",\"BuildingAdmin\"] },
+  { to: \"/app/users\", label: \"Users\", icon: Users, roles: [\"SuperAdmin\",\"BuildingAdmin\"] },
+  { to: \"/app/billing\", label: \"Billing\", icon: Receipt, roles: [\"SuperAdmin\",\"BuildingAdmin\",\"Resident\",\"Tenant\"] },
+  { to: \"/app/parking\", label: \"Parking\", icon: CarFront, roles: [\"SuperAdmin\",\"BuildingAdmin\",\"Resident\",\"Tenant\",\"SecurityStaff\"] },
+  { to: \"/app/visitors\", label: \"Visitors\", icon: UserCheck, roles: [\"SuperAdmin\",\"BuildingAdmin\",\"SecurityStaff\",\"Resident\",\"Tenant\"] },
+  { to: \"/app/canteen\", label: \"Canteen\", icon: UtensilsCrossed, roles: [\"SuperAdmin\",\"BuildingAdmin\",\"CanteenStaff\",\"Resident\",\"Tenant\"] },
+  { to: \"/app/complaints\", label: \"Complaints\", icon: Wrench, roles: [\"SuperAdmin\",\"BuildingAdmin\",\"MaintenanceStaff\",\"Resident\",\"Tenant\"] },
+  { to: \"/app/voting\", label: \"Voting\", icon: Vote, roles: [\"SuperAdmin\",\"BuildingAdmin\",\"Resident\",\"Tenant\"] },
+  { to: \"/app/notices\", label: \"Notices\", icon: Megaphone, roles: [\"SuperAdmin\",\"BuildingAdmin\",\"SecurityStaff\",\"MaintenanceStaff\",\"CanteenStaff\",\"Resident\",\"Tenant\"] },
+  { to: \"/app/settings\", label: \"Settings\", icon: Settings, roles: [\"SuperAdmin\",\"BuildingAdmin\",\"SecurityStaff\",\"MaintenanceStaff\",\"CanteenStaff\",\"Resident\",\"Tenant\"] },
+];
+
+export default function Sidebar({ open, onClose }) {
+  const { user } = useAuth();
+  const items = ALL_ITEMS.filter(i => i.roles.includes(user?.role));
+
+  return (
+    <>
+      {/* Mobile overlay */}
+      {open && <div className=\"fixed inset-0 bg-slate-900/40 z-40 lg:hidden\" onClick={onClose} data-testid=\"sidebar-overlay\" />}
+      <aside
+        data-testid=\"sidebar\"
+        className={cn(
+          \"fixed lg:sticky top-0 left-0 h-screen z-50 w-64 bg-white border-r-2 border-slate-200 flex flex-col transition-transform\",
+          open ? \"translate-x-0\" : \"-translate-x-full lg:translate-x-0\"
+        )}
+      >
+        <div className=\"h-16 px-6 flex items-center justify-between border-b-2 border-slate-200\">
+          <div>
+            <div className=\"font-display text-xl font-semibold tracking-tight\">BMS<span className=\"text-brand\">.</span></div>
+            <div className=\"text-[10px] tracking-[0.25em] uppercase text-slate-500\">Control Room</div>
+          </div>
+          <button className=\"lg:hidden p-1.5 hover:bg-slate-100\" onClick={onClose} data-testid=\"sidebar-close\">
+            <X className=\"w-4 h-4\" />
+          </button>
+        </div>
+        <nav className=\"flex-1 overflow-y-auto py-4\">
+          {items.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              onClick={onClose}
+              data-testid={`nav-${item.label.toLowerCase()}`}
+              className={({ isActive }) => cn(
+                \"flex items-center gap-3 px-6 py-3 text-sm border-l-4 transition-all\",
+                isActive
+                  ? \"border-brand bg-brand-50 text-brand font-medium\"
+                  : \"border-transparent text-slate-700 hover:bg-slate-50 hover:text-slate-900\"
+              )}
+            >
+              <item.icon className=\"w-4 h-4 flex-shrink-0\" />
+              <span className=\"truncate\">{item.label}</span>
+            </NavLink>
+          ))}
+        </nav>
+        <div className=\"p-6 border-t-2 border-slate-200\">
+          <div className=\"eyebrow mb-2\">Signed in</div>
+          <div className=\"text-sm font-medium text-slate-900 truncate\" data-testid=\"sidebar-user-name\">
+            {user?.firstName} {user?.lastName}
+          </div>
+          <div className=\"font-mono text-[11px] text-brand tracking-wider uppercase mt-0.5\" data-testid=\"sidebar-user-role\">
+            {user?.role}
+          </div>
+        </div>
+      </aside>
+    </>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/components/Sidebar.jsx
+
+
+
+Action: file_editor create /app/frontend/src/components/Topbar.jsx --file-text "import React from \"react\";
+import { useLocation, useNavigate, Link } from \"react-router-dom\";
+import { Menu, ChevronRight, LogOut, User, KeyRound } from \"lucide-react\";
+import { useAuth } from \"@/contexts/AuthContext\";
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
+  DropdownMenuSeparator, DropdownMenuTrigger
+} from \"@/components/ui/dropdown-menu\";
+import { isDemo } from \"@/api/mockAdapter\";
+
+export default function Topbar({ onMenu }) {
+  const { user, logout } = useAuth();
+  const nav = useNavigate();
+  const loc = useLocation();
+  const parts = loc.pathname.split(\"/\").filter(Boolean).slice(1);
+
+  return (
+    <header className=\"sticky top-0 z-30 bg-white/95 backdrop-blur-xl border-b border-slate-200\">
+      <div className=\"flex items-center h-16 px-4 sm:px-6 gap-4\">
+        <button onClick={onMenu} className=\"lg:hidden p-2 hover:bg-slate-100\" data-testid=\"topbar-menu-btn\">
+          <Menu className=\"w-5 h-5\" />
+        </button>
+        <nav className=\"hidden sm:flex items-center gap-2 text-sm text-slate-500 font-mono\">
+          <Link to=\"/app/dashboard\" className=\"hover:text-brand\">BMS</Link>
+          {parts.map((p, i) => (
+            <React.Fragment key={i}>
+              <ChevronRight className=\"w-3 h-3\" />
+              <span className={i === parts.length - 1 ? \"text-slate-900\" : \"\"}>{p}</span>
+            </React.Fragment>
+          ))}
+        </nav>
+        <div className=\"flex-1\" />
+        {isDemo() && (
+          <span className=\"hidden sm:inline-flex items-center gap-1.5 px-3 h-7 border border-safety text-safety text-[11px] tracking-[0.18em] uppercase font-semibold\" data-testid=\"demo-badge\">
+            <span className=\"w-1.5 h-1.5 bg-safety\" />Demo Mode
+          </span>
+        )}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className=\"flex items-center gap-3 px-2 py-1.5 hover:bg-slate-100\" data-testid=\"topbar-profile-btn\">
+              <div className=\"w-9 h-9 bg-brand text-white flex items-center justify-center font-display font-semibold text-sm\">
+                {user?.firstName?.[0]}{user?.lastName?.[0]}
+              </div>
+              <div className=\"hidden sm:block text-left\">
+                <div className=\"text-sm font-medium leading-tight\">{user?.firstName} {user?.lastName}</div>
+                <div className=\"text-[10px] text-slate-500 uppercase tracking-wider\">{user?.role}</div>
+              </div>
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align=\"end\" className=\"w-56 rounded-none\">
+            <DropdownMenuLabel className=\"font-mono text-xs\">{user?.email}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => nav(\"/app/profile\")} data-testid=\"menu-profile\">
+              <User className=\"w-4 h-4 mr-2\" /> Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => nav(\"/app/profile?tab=password\")} data-testid=\"menu-change-password\">
+              <KeyRound className=\"w-4 h-4 mr-2\" /> Change Password
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => { logout(); nav(\"/login\"); }} data-testid=\"menu-logout\">
+              <LogOut className=\"w-4 h-4 mr-2\" /> Sign out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </header>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/components/Topbar.jsx
+
+
+Action: file_editor create /app/frontend/src/layouts/AppLayout.jsx --file-text "import React, { useState } from \"react\";
+import { Outlet } from \"react-router-dom\";
+import Sidebar from \"@/components/Sidebar\";
+import Topbar from \"@/components/Topbar\";
+import { Toaster } from \"@/components/ui/sonner\";
+import ConnectionBanner from \"@/components/ConnectionBanner\";
+
+export default function AppLayout() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className=\"min-h-screen flex bg-slate-50\" data-testid=\"app-layout\">
+      <Sidebar open={open} onClose={() => setOpen(false)} />
+      <div className=\"flex-1 flex flex-col min-w-0\">
+        <Topbar onMenu={() => setOpen(true)} />
+        <ConnectionBanner />
+        <main className=\"flex-1 p-4 sm:p-8 animate-fade-up\">
+          <Outlet />
+        </main>
+      </div>
+      <Toaster position=\"top-right\" />
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/layouts/AppLayout.jsx
+
+
+
+
+Action: file_editor create /app/frontend/src/components/ConnectionBanner.jsx --file-text "import React, { useEffect, useState } from \"react\";
+import { AlertTriangle, X } from \"lucide-react\";
+import { getApiUrl } from \"@/api/client\";
+import { isDemo } from \"@/api/mockAdapter\";
+import { Link } from \"react-router-dom\";
+
+export default function ConnectionBanner() {
+  const [status, setStatus] = useState(\"checking\"); // checking | online | offline | demo
+  const [dismissed, setDismissed] = useState(false);
+
+  useEffect(() => {
+    if (isDemo()) { setStatus(\"demo\"); return; }
+    let alive = true;
+    const url = getApiUrl().replace(/\/api$/, \"\") + \"/health\";
+    fetch(url, { method: \"GET\", mode: \"cors\" })
+      .then((r) => { if (alive) setStatus(r.ok ? \"online\" : \"offline\"); })
+      .catch(() => { if (alive) setStatus(\"offline\"); });
+    return () => { alive = false; };
+  }, []);
+
+  if (status === \"online\" || status === \"demo\" || dismissed) return null;
+
+  return (
+    <div className=\"bg-safety/10 border-b border-safety/40 px-4 sm:px-6 py-2.5 flex items-start sm:items-center gap-3 text-sm\" data-testid=\"connection-banner\">
+      <AlertTriangle className=\"w-4 h-4 text-safety flex-shrink-0 mt-0.5 sm:mt-0\" />
+      <div className=\"flex-1 min-w-0\">
+        <span className=\"font-semibold text-slate-900\">BMS API unreachable</span>
+        <span className=\"text-slate-700\"> — configure your backend URL or switch to demo mode. </span>
+        <Link to=\"/app/settings\" className=\"text-brand underline underline-offset-2 font-medium\" data-testid=\"banner-settings-link\">Open settings →</Link>
+      </div>
+      <button onClick={() => setDismissed(true)} className=\"p-1 hover:bg-white\" data-testid=\"banner-dismiss\">
+        <X className=\"w-4 h-4\" />
+      </button>
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/components/ConnectionBanner.jsx
+
+
+
+
+Action: file_editor create /app/frontend/src/components/KPICard.jsx --file-text "import React from \"react\";
+import { cn } from \"@/lib/utils\";
+
+export default function KPICard({ label, value, hint, icon: Icon, accent = \"brand\", testId }) {
+  const accentBar = {
+    brand: \"bg-brand\",
+    safety: \"bg-safety\",
+    success: \"bg-emerald-500\",
+    warning: \"bg-amber-500\",
+    slate: \"bg-slate-900\",
+  }[accent];
+  return (
+    <div className=\"bms-card p-6 relative overflow-hidden group hover:-translate-y-0.5 hover:shadow-md transition-all duration-200\" data-testid={testId}>
+      <div className={cn(\"absolute top-0 left-0 w-1 h-full\", accentBar)} />
+      <div className=\"flex items-start justify-between gap-3\">
+        <div className=\"min-w-0\">
+          <div className=\"eyebrow\">{label}</div>
+          <div className=\"font-display text-4xl font-light tracking-tight mt-2 text-slate-900 truncate\">{value}</div>
+          {hint && <div className=\"text-xs text-slate-500 mt-2\">{hint}</div>}
+        </div>
+        {Icon && (
+          <div className=\"w-10 h-10 border border-slate-200 flex items-center justify-center text-slate-400 group-hover:text-brand transition-colors\">
+            <Icon className=\"w-5 h-5\" />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/components/KPICard.jsx
+
+
+
+Action: file_editor create /app/frontend/src/components/EmptyState.jsx --file-text "import React from \"react\";
+import { Inbox } from \"lucide-react\";
+
+export default function EmptyState({ title = \"Nothing here yet\", description, action, icon: Icon = Inbox }) {
+  return (
+    <div className=\"bms-card p-12 text-center relative overflow-hidden\" data-testid=\"empty-state\">
+      <div className=\"absolute inset-0 grid-lines opacity-50 pointer-events-none\" />
+      <div className=\"relative\">
+        <div className=\"w-14 h-14 border-2 border-slate-300 mx-auto flex items-center justify-center\">
+          <Icon className=\"w-6 h-6 text-slate-400\" />
+        </div>
+        <h3 className=\"font-display text-xl font-medium mt-6 text-slate-900\">{title}</h3>
+        {description && <p className=\"text-sm text-slate-500 mt-2 max-w-sm mx-auto\">{description}</p>}
+        {action && <div className=\"mt-6 flex justify-center\">{action}</div>}
+      </div>
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/components/EmptyState.jsx
+
+
+Action: file_editor create /app/frontend/src/components/StatusBadge.jsx --file-text "import React from \"react\";
+import { cn } from \"@/lib/utils\";
+
+const COLOR_MAP = {
+  open: \"border-amber-500 text-amber-700 bg-amber-50\",
+  expected: \"border-sky-500 text-sky-700 bg-sky-50\",
+  pending: \"border-amber-500 text-amber-700 bg-amber-50\",
+  active: \"border-brand text-brand bg-brand-50\",
+  occupied: \"border-safety text-safety bg-orange-50\",
+  available: \"border-emerald-500 text-emerald-700 bg-emerald-50\",
+  paid: \"border-emerald-500 text-emerald-700 bg-emerald-50\",
+  resolved: \"border-emerald-500 text-emerald-700 bg-emerald-50\",
+  closed: \"border-slate-400 text-slate-700 bg-slate-100\",
+  assigned: \"border-indigo-500 text-indigo-700 bg-indigo-50\",
+  cancelled: \"border-slate-400 text-slate-500 bg-slate-50\",
+  checkedin: \"border-brand text-brand bg-brand-50\",
+  checkedout: \"border-slate-400 text-slate-600 bg-slate-50\",
+  placed: \"border-sky-500 text-sky-700 bg-sky-50\",
+  preparing: \"border-amber-500 text-amber-700 bg-amber-50\",
+  delivered: \"border-emerald-500 text-emerald-700 bg-emerald-50\",
+  vacant: \"border-slate-400 text-slate-700 bg-slate-50\",
+};
+
+export default function StatusBadge({ status }) {
+  const key = (status || \"\").toLowerCase().replace(/\s+/g, \"\");
+  const cls = COLOR_MAP[key] || \"border-slate-300 text-slate-700 bg-white\";
+  return (
+    <span className={cn(\"inline-flex items-center gap-1.5 px-2.5 py-0.5 border text-[11px] tracking-[0.14em] uppercase font-semibold\", cls)}>
+      <span className=\"w-1.5 h-1.5 bg-current\" />{status}
+    </span>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/components/StatusBadge.jsx
+
+
+
+Action: file_editor create /app/frontend/src/components/DataTable.jsx --file-text "import React, { useMemo, useState } from \"react\";
+import { Search } from \"lucide-react\";
+import EmptyState from \"@/components/EmptyState\";
+
+// Reusable dynamic data table.
+// columns: [{ key, label, render?: (row) => ReactNode, className? }]
+export default function DataTable({ columns, rows, loading, searchableKeys = [], actions, rowKey, emptyTitle, emptyDescription, testId = \"data-table\" }) {
+  const [q, setQ] = useState(\"\");
+
+  const filtered = useMemo(() => {
+    if (!q || !searchableKeys.length) return rows;
+    const qq = q.toLowerCase();
+    return rows.filter((r) => searchableKeys.some((k) => String(r[k] ?? \"\").toLowerCase().includes(qq)));
+  }, [rows, q, searchableKeys]);
+
+  return (
+    <div className=\"bms-card\" data-testid={testId}>
+      <div className=\"flex flex-col sm:flex-row sm:items-center gap-3 p-4 border-b border-slate-200\">
+        {searchableKeys.length > 0 && (
+          <div className=\"relative flex-1 max-w-sm\">
+            <Search className=\"w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400\" />
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder=\"Search…\"
+              className=\"bms-input pl-9 h-9\"
+              data-testid={`${testId}-search`}
+            />
+          </div>
+        )}
+        <div className=\"flex-1\" />
+        {actions}
+      </div>
+
+      {loading ? (
+        <div className=\"p-12 text-center font-mono text-xs tracking-[0.2em] uppercase text-slate-500\" data-testid={`${testId}-loading`}>Loading…</div>
+      ) : filtered.length === 0 ? (
+        <div className=\"p-6\">
+          <EmptyState title={emptyTitle || \"No records\"} description={emptyDescription} />
+        </div>
+      ) : (
+        <div className=\"overflow-x-auto\">
+          <table className=\"w-full text-sm\">
+            <thead>
+              <tr className=\"border-b border-slate-200\">
+                {columns.map((c) => (
+                  <th key={c.key} className=\"text-left p-4 text-[11px] tracking-[0.14em] uppercase font-semibold text-slate-500 bg-slate-50\">
+                    {c.label}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((row, idx) => (
+                <tr key={row[rowKey] ?? idx} className=\"border-b border-slate-100 hover:bg-slate-50 transition-colors\" data-testid={`${testId}-row-${idx}`}>
+                  {columns.map((c) => (
+                    <td key={c.key} className={`p-4 align-middle text-slate-700 ${c.className || \"\"}`}>
+                      {c.render ? c.render(row) : row[c.key]}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/components/DataTable.jsx
+
+
+
+Action: file_editor create /app/frontend/src/components/PageHeader.jsx --file-text "import React from \"react\";
+
+export function PageHeader({ eyebrow, title, description, actions }) {
+  return (
+    <div className=\"flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-8\">
+      <div className=\"min-w-0\">
+        {eyebrow && <div className=\"eyebrow mb-2\" data-testid=\"page-eyebrow\">{eyebrow}</div>}
+        <h1 className=\"font-display text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-900\" data-testid=\"page-title\">{title}</h1>
+        {description && <p className=\"text-sm text-slate-600 mt-3 max-w-2xl\">{description}</p>}
+      </div>
+      {actions && <div className=\"flex items-center gap-2 flex-wrap\">{actions}</div>}
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/components/PageHeader.jsx
+
+
+Now build App router, auth pages, and all feature pages in parallel.
+Action: file_editor create /app/frontend/src/App.js --file-text "import React from \"react\";
+import \"@/App.css\";
+import { BrowserRouter, Routes, Route, Navigate } from \"react-router-dom\";
+import { AuthProvider } from \"@/contexts/AuthContext\";
+import ProtectedRoute from \"@/components/ProtectedRoute\";
+import AppLayout from \"@/layouts/AppLayout\";
+import Login from \"@/pages/Login\";
+import Register from \"@/pages/Register\";
+import ForgotPassword from \"@/pages/ForgotPassword\";
+import Dashboard from \"@/pages/Dashboard\";
+import Buildings from \"@/pages/Buildings\";
+import Users from \"@/pages/Users\";
+import Billing from \"@/pages/Billing\";
+import Parking from \"@/pages/Parking\";
+import Visitors from \"@/pages/Visitors\";
+import Canteen from \"@/pages/Canteen\";
+import Complaints from \"@/pages/Complaints\";
+import Voting from \"@/pages/Voting\";
+import Notices from \"@/pages/Notices\";
+import Settings from \"@/pages/Settings\";
+import Profile from \"@/pages/Profile\";
+
+function App() {
+  return (
+    <div className=\"App\">
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            <Route path=\"/\" element={<Navigate to=\"/app/dashboard\" replace />} />
+            <Route path=\"/login\" element={<Login />} />
+            <Route path=\"/register\" element={<Register />} />
+            <Route path=\"/forgot-password\" element={<ForgotPassword />} />
+
+            <Route path=\"/app\" element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
+              <Route index element={<Navigate to=\"dashboard\" replace />} />
+              <Route path=\"dashboard\" element={<Dashboard />} />
+              <Route path=\"buildings\" element={<ProtectedRoute roles={[\"SuperAdmin\",\"BuildingAdmin\"]}><Buildings /></ProtectedRoute>} />
+              <Route path=\"users\" element={<ProtectedRoute roles={[\"SuperAdmin\",\"BuildingAdmin\"]}><Users /></ProtectedRoute>} />
+              <Route path=\"billing\" element={<Billing />} />
+              <Route path=\"parking\" element={<Parking />} />
+              <Route path=\"visitors\" element={<Visitors />} />
+              <Route path=\"canteen\" element={<Canteen />} />
+              <Route path=\"complaints\" element={<Complaints />} />
+              <Route path=\"voting\" element={<Voting />} />
+              <Route path=\"notices\" element={<Notices />} />
+              <Route path=\"settings\" element={<Settings />} />
+              <Route path=\"profile\" element={<Profile />} />
+            </Route>
+            <Route path=\"*\" element={<Navigate to=\"/app/dashboard\" replace />} />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+"
+Observation: Overwrite successful: /app/frontend/src/App.js
+
+
+
+
+Action: file_editor create /app/frontend/src/pages/Login.jsx --file-text "import React, { useState } from \"react\";
+import { Link, useLocation, useNavigate } from \"react-router-dom\";
+import { useAuth } from \"@/contexts/AuthContext\";
+import { toast } from \"sonner\";
+import { getApiUrl, setApiUrl } from \"@/api/client\";
+import { isDemo } from \"@/api/mockAdapter\";
+import { ArrowRight, Loader2, Server, Zap } from \"lucide-react\";
+
+export default function Login() {
+  const { login } = useAuth();
+  const nav = useNavigate();
+  const loc = useLocation();
+  const [email, setEmail] = useState(isDemo() ? \"superadmin@bms.com\" : \"\");
+  const [password, setPassword] = useState(isDemo() ? \"Admin@123\" : \"\");
+  const [loading, setLoading] = useState(false);
+  const [apiUrl, setApiUrlLocal] = useState(getApiUrl());
+  const [demo, setDemo] = useState(isDemo());
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      setApiUrl(apiUrl);
+      localStorage.setItem(\"bms_demo_mode\", demo ? \"true\" : \"false\");
+      const user = await login(email, password);
+      toast.success(`Welcome, ${user.firstName || user.email}`);
+      nav(loc.state?.from?.pathname || \"/app/dashboard\", { replace: true });
+    } catch (err) {
+      toast.error(err.response?.data?.message || err.message || \"Login failed\");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className=\"min-h-screen grid lg:grid-cols-[1.1fr_1fr] bg-white\" data-testid=\"login-page\">
+      {/* Left: form */}
+      <div className=\"flex items-center justify-center p-6 sm:p-12 order-2 lg:order-1\">
+        <div className=\"w-full max-w-md\">
+          <Link to=\"/\" className=\"inline-block mb-12\">
+            <div className=\"font-display text-2xl font-semibold tracking-tight\">BMS<span className=\"text-brand\">.</span></div>
+            <div className=\"text-[10px] tracking-[0.25em] uppercase text-slate-500\">Building Management System</div>
+          </Link>
+
+          <div className=\"eyebrow mb-3\">Secure Login</div>
+          <h1 className=\"font-display text-4xl sm:text-5xl font-light tracking-tight mb-3\">Sign in to your control room.</h1>
+          <p className=\"text-sm text-slate-600 mb-10\">Access your buildings, residents, operations and reports in one interface.</p>
+
+          <form onSubmit={submit} className=\"space-y-5\" data-testid=\"login-form\">
+            <div>
+              <label className=\"bms-label\">Email</label>
+              <input type=\"email\" required value={email} onChange={(e)=>setEmail(e.target.value)} placeholder=\"you@domain.com\" className=\"bms-input\" data-testid=\"login-email\" />
+            </div>
+            <div>
+              <div className=\"flex items-center justify-between mb-2\">
+                <label className=\"bms-label mb-0\">Password</label>
+                <Link to=\"/forgot-password\" className=\"text-[11px] tracking-wider uppercase text-brand hover:underline\" data-testid=\"forgot-link\">Forgot?</Link>
+              </div>
+              <input type=\"password\" required value={password} onChange={(e)=>setPassword(e.target.value)} placeholder=\"••••••••\" className=\"bms-input\" data-testid=\"login-password\" />
+            </div>
+
+            <details className=\"border border-slate-200 bg-slate-50\">
+              <summary className=\"cursor-pointer px-4 py-3 text-xs tracking-[0.14em] uppercase font-semibold text-slate-600 flex items-center gap-2\">
+                <Server className=\"w-3.5 h-3.5\" /> API Configuration
+              </summary>
+              <div className=\"p-4 space-y-3 bg-white border-t border-slate-200\">
+                <div>
+                  <label className=\"bms-label\">BMS API URL</label>
+                  <input value={apiUrl} onChange={(e)=>setApiUrlLocal(e.target.value)} className=\"bms-input font-mono text-xs\" data-testid=\"login-api-url\" />
+                </div>
+                <label className=\"flex items-center gap-2 text-sm cursor-pointer select-none\">
+                  <input type=\"checkbox\" checked={demo} onChange={(e)=>setDemo(e.target.checked)} className=\"w-4 h-4 accent-brand\" data-testid=\"login-demo-toggle\" />
+                  <Zap className=\"w-4 h-4 text-safety\" />
+                  <span className=\"text-slate-700\">Demo mode (use local in-memory data)</span>
+                </label>
+                {demo && (
+                  <div className=\"text-[11px] font-mono text-slate-500 bg-slate-50 border border-slate-200 p-2\">
+                    Try: <span className=\"text-brand\">superadmin@bms.com</span> / <span className=\"text-brand\">Admin@123</span>
+                  </div>
+                )}
+              </div>
+            </details>
+
+            <button type=\"submit\" disabled={loading} className=\"btn-primary w-full h-12\" data-testid=\"login-submit\">
+              {loading ? <Loader2 className=\"w-4 h-4 animate-spin\" /> : <>Sign in <ArrowRight className=\"w-4 h-4\" /></>}
+            </button>
+          </form>
+
+          <div className=\"mt-8 text-sm text-slate-600\">
+            New here? <Link to=\"/register\" className=\"text-brand font-medium hover:underline\" data-testid=\"register-link\">Create an account</Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Right: visual panel */}
+      <div className=\"relative overflow-hidden bg-slate-900 order-1 lg:order-2 min-h-[200px] lg:min-h-0\">
+        <div className=\"absolute inset-0\">
+          <img
+            src=\"https://static.prod-images.emergentagent.com/jobs/4a496967-f19a-4ed0-804e-895dcea6a9dc/images/f5c81c64001480b18be5417e105ced8a410537c01ea8b5ef1eca3cb347dce7d9.png\"
+            alt=\"Architectural blueprint\"
+            className=\"w-full h-full object-cover opacity-70\"
+          />
+        </div>
+        <div className=\"absolute inset-0 bg-gradient-to-br from-slate-900/60 to-slate-900/20\" />
+        <div className=\"relative h-full p-8 lg:p-16 flex flex-col justify-between text-white\">
+          <div className=\"eyebrow text-white/70\">v 1.0 · Engineered for scale</div>
+          <div>
+            <h2 className=\"font-display text-2xl lg:text-4xl font-light leading-tight max-w-md\">
+              One platform for every tenant, every complaint, every invoice.
+            </h2>
+            <div className=\"mt-6 flex items-center gap-3 font-mono text-[11px] tracking-[0.18em] uppercase text-white/80\">
+              <span className=\"w-6 h-px bg-safety\" /> BMS · Control Room
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Login.jsx
+
+
+
+Action: file_editor create /app/frontend/src/pages/Register.jsx --file-text "import React, { useState } from \"react\";
+import { Link, useNavigate } from \"react-router-dom\";
+import { useAuth } from \"@/contexts/AuthContext\";
+import { toast } from \"sonner\";
+import { Loader2, ArrowRight } from \"lucide-react\";
+
+const ROLES = [\"Resident\",\"Tenant\",\"BuildingAdmin\",\"SecurityStaff\",\"MaintenanceStaff\",\"CanteenStaff\"];
+
+export default function Register() {
+  const { register } = useAuth();
+  const nav = useNavigate();
+  const [form, setForm] = useState({ firstName:\"\", lastName:\"\", email:\"\", phone:\"\", password:\"\", role:\"Resident\" });
+  const [loading, setLoading] = useState(false);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await register(form);
+      toast.success(\"Account created\");
+      nav(\"/app/dashboard\", { replace: true });
+    } catch (err) {
+      toast.error(err.response?.data?.message || err.message || \"Registration failed\");
+    } finally { setLoading(false); }
+  };
+
+  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  return (
+    <div className=\"min-h-screen flex items-center justify-center p-6 bg-slate-50\" data-testid=\"register-page\">
+      <div className=\"w-full max-w-xl bms-card p-8 sm:p-12\">
+        <Link to=\"/login\" className=\"text-xs tracking-[0.14em] uppercase text-slate-500 hover:text-brand\">← Back to login</Link>
+        <div className=\"eyebrow mt-6 mb-3\">Create Account</div>
+        <h1 className=\"font-display text-3xl sm:text-4xl font-light tracking-tight mb-8\">Join the BMS.</h1>
+        <form onSubmit={submit} className=\"grid sm:grid-cols-2 gap-5\" data-testid=\"register-form\">
+          <div><label className=\"bms-label\">First name</label><input required className=\"bms-input\" value={form.firstName} onChange={set(\"firstName\")} data-testid=\"reg-firstname\" /></div>
+          <div><label className=\"bms-label\">Last name</label><input required className=\"bms-input\" value={form.lastName} onChange={set(\"lastName\")} data-testid=\"reg-lastname\" /></div>
+          <div className=\"sm:col-span-2\"><label className=\"bms-label\">Email</label><input type=\"email\" required className=\"bms-input\" value={form.email} onChange={set(\"email\")} data-testid=\"reg-email\" /></div>
+          <div><label className=\"bms-label\">Phone</label><input className=\"bms-input\" value={form.phone} onChange={set(\"phone\")} data-testid=\"reg-phone\" /></div>
+          <div>
+            <label className=\"bms-label\">Role</label>
+            <select className=\"bms-input\" value={form.role} onChange={set(\"role\")} data-testid=\"reg-role\">
+              {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
+            </select>
+          </div>
+          <div className=\"sm:col-span-2\"><label className=\"bms-label\">Password</label><input type=\"password\" required minLength={6} className=\"bms-input\" value={form.password} onChange={set(\"password\")} data-testid=\"reg-password\" /></div>
+          <button type=\"submit\" disabled={loading} className=\"btn-primary sm:col-span-2 h-12\" data-testid=\"reg-submit\">
+            {loading ? <Loader2 className=\"w-4 h-4 animate-spin\" /> : <>Create account <ArrowRight className=\"w-4 h-4\" /></>}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Register.jsx
+
+
+Action: file_editor create /app/frontend/src/pages/ForgotPassword.jsx --file-text "import React, { useState } from \"react\";
+import { Link } from \"react-router-dom\";
+import { api } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+import { toast } from \"sonner\";
+import { Mail, Loader2 } from \"lucide-react\";
+
+export default function ForgotPassword() {
+  const [email, setEmail] = useState(\"\");
+  const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await api.post(EP.auth.forgot, { email });
+      setSent(true);
+      toast.success(\"Reset link sent if account exists\");
+    } catch (err) {
+      toast.error(err.response?.data?.message || err.message || \"Request failed\");
+    } finally { setLoading(false); }
+  };
+
+  return (
+    <div className=\"min-h-screen flex items-center justify-center p-6 bg-slate-50\" data-testid=\"forgot-page\">
+      <div className=\"w-full max-w-md bms-card p-8 sm:p-12\">
+        <div className=\"w-12 h-12 border-2 border-brand flex items-center justify-center mb-6\"><Mail className=\"w-5 h-5 text-brand\" /></div>
+        <div className=\"eyebrow mb-3\">Password Recovery</div>
+        <h1 className=\"font-display text-3xl font-light tracking-tight mb-3\">Reset your password</h1>
+        <p className=\"text-sm text-slate-600 mb-8\">Enter the email tied to your BMS account and we'll send a secure reset link.</p>
+
+        {sent ? (
+          <div className=\"border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800\">
+            If an account with that email exists, you'll receive a reset link shortly.
+          </div>
+        ) : (
+          <form onSubmit={submit} className=\"space-y-5\" data-testid=\"forgot-form\">
+            <div><label className=\"bms-label\">Email</label><input type=\"email\" required className=\"bms-input\" value={email} onChange={(e)=>setEmail(e.target.value)} data-testid=\"forgot-email\" /></div>
+            <button disabled={loading} className=\"btn-primary w-full h-12\" data-testid=\"forgot-submit\">
+              {loading ? <Loader2 className=\"w-4 h-4 animate-spin\" /> : \"Send reset link\"}
+            </button>
+          </form>
+        )}
+
+        <div className=\"mt-6 text-sm\"><Link to=\"/login\" className=\"text-brand hover:underline\">← Back to login</Link></div>
+      </div>
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/ForgotPassword.jsx
+
+
+Action: file_editor create /app/frontend/src/pages/Dashboard.jsx --file-text "import React, { useEffect, useState } from \"react\";
+import { useAuth } from \"@/contexts/AuthContext\";
+import { api, unwrap } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+import KPICard from \"@/components/KPICard\";
+import { PageHeader } from \"@/components/PageHeader\";
+import { Building2, Users, Receipt, Wrench, UserCheck, CarFront, TrendingUp, AlertCircle } from \"lucide-react\";
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, PieChart, Pie, Cell, Legend } from \"recharts\";
+
+const CHART_COLORS = [\"#0043CE\", \"#FF3E00\", \"#16A34A\", \"#EAB308\", \"#64748B\"];
+
+export default function Dashboard() {
+  const { user } = useAuth();
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const endpoint =
+      user.role === \"SuperAdmin\" ? EP.dashboard.superAdmin :
+      (user.role === \"BuildingAdmin\" || user.role === \"SecurityStaff\" || user.role === \"MaintenanceStaff\" || user.role === \"CanteenStaff\") ? EP.dashboard.buildingAdmin :
+      EP.dashboard.resident;
+    api.get(endpoint).then((r) => setStats(unwrap(r))).catch(() => setStats({})).finally(() => setLoading(false));
+  }, [user.role]);
+
+  const greeting = new Date().getHours() < 12 ? \"Good morning\" : new Date().getHours() < 18 ? \"Good afternoon\" : \"Good evening\";
+
+  return (
+    <div className=\"space-y-8\" data-testid=\"dashboard-page\">
+      <PageHeader
+        eyebrow={`${user.role} · Overview`}
+        title={`${greeting}, ${user.firstName}.`}
+        description=\"Operational pulse of your buildings, residents and services — at a glance.\"
+      />
+
+      {loading ? (
+        <div className=\"grid grid-cols-2 lg:grid-cols-4 gap-4\">
+          {[...Array(4)].map((_, i) => <div key={i} className=\"bms-card h-32 animate-pulse\" />)}
+        </div>
+      ) : user.role === \"SuperAdmin\" ? (
+        <SuperAdminView stats={stats} />
+      ) : user.role === \"Resident\" || user.role === \"Tenant\" ? (
+        <ResidentView stats={stats} />
+      ) : (
+        <AdminView stats={stats} />
+      )}
+    </div>
+  );
+}
+
+function SuperAdminView({ stats }) {
+  const s = stats || {};
+  const chartData = [
+    { name: \"Buildings\", value: s.totalBuildings || 0 },
+    { name: \"Units\", value: s.totalUnits || 0 },
+    { name: \"Users\", value: s.totalUsers || 0 },
+    { name: \"Complaints\", value: s.openComplaints || 0 },
+  ];
+  return (
+    <>
+      <div className=\"grid grid-cols-2 lg:grid-cols-4 gap-4\">
+        <KPICard label=\"Buildings\" value={s.totalBuildings ?? \"—\"} icon={Building2} accent=\"brand\" testId=\"kpi-buildings\" />
+        <KPICard label=\"Total Units\" value={s.totalUnits ?? \"—\"} icon={Building2} accent=\"slate\" testId=\"kpi-units\" />
+        <KPICard label=\"Users\" value={s.totalUsers ?? \"—\"} icon={Users} accent=\"brand\" testId=\"kpi-users\" />
+        <KPICard label=\"Open Complaints\" value={s.openComplaints ?? \"—\"} icon={Wrench} accent=\"safety\" testId=\"kpi-complaints\" />
+      </div>
+      <div className=\"grid lg:grid-cols-[2fr_1fr] gap-6\">
+        <div className=\"bms-card p-6\">
+          <div className=\"eyebrow mb-4\">System Footprint</div>
+          <div className=\"h-64\">
+            <ResponsiveContainer>
+              <BarChart data={chartData}>
+                <CartesianGrid strokeDasharray=\"3 3\" stroke=\"#e2e8f0\" vertical={false} />
+                <XAxis dataKey=\"name\" tick={{ fontSize: 11, fill: \"#64748b\" }} axisLine={{ stroke: \"#cbd5e1\" }} />
+                <YAxis tick={{ fontSize: 11, fill: \"#64748b\" }} axisLine={{ stroke: \"#cbd5e1\" }} />
+                <Tooltip contentStyle={{ borderRadius: 0, border: \"1px solid #cbd5e1\", fontSize: 12 }} />
+                <Bar dataKey=\"value\" fill=\"#0043CE\" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+        <div className=\"bms-card p-6\">
+          <div className=\"eyebrow mb-4\">Pending Bills</div>
+          <div className=\"font-display text-5xl font-light text-slate-900\">{s.pendingBills ?? 0}</div>
+          <p className=\"text-sm text-slate-500 mt-2\">Awaiting collection across all buildings</p>
+          <div className=\"mt-6 pt-6 border-t border-slate-200\">
+            <div className=\"eyebrow mb-2\">Recent Notices</div>
+            <div className=\"space-y-2\">
+              {(s.recentActivity || []).slice(0, 3).map((n, i) => (
+                <div key={i} className=\"text-sm text-slate-700 truncate\">• {n.title || n.content || \"Notice\"}</div>
+              ))}
+              {(!s.recentActivity || s.recentActivity.length === 0) && <div className=\"text-sm text-slate-400\">No recent activity</div>}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function AdminView({ stats }) {
+  const s = stats || {};
+  const pie = [
+    { name: \"Paid\", value: 72 },
+    { name: \"Pending\", value: s.pendingBills || 28 },
+  ];
+  return (
+    <>
+      <div className=\"grid grid-cols-2 lg:grid-cols-4 gap-4\">
+        <KPICard label=\"Occupancy\" value={`${s.occupancy ?? 0}%`} icon={TrendingUp} accent=\"brand\" testId=\"kpi-occupancy\" />
+        <KPICard label=\"Pending Bills\" value={s.pendingBills ?? 0} icon={Receipt} accent=\"safety\" testId=\"kpi-pending-bills\" />
+        <KPICard label=\"Visitors Today\" value={s.visitorsToday ?? 0} icon={UserCheck} accent=\"slate\" testId=\"kpi-visitors\" />
+        <KPICard label=\"Open Issues\" value={s.openComplaints ?? 0} icon={AlertCircle} accent=\"warning\" testId=\"kpi-issues\" />
+      </div>
+      <div className=\"grid lg:grid-cols-[1fr_2fr] gap-6\">
+        <div className=\"bms-card p-6\">
+          <div className=\"eyebrow mb-4\">Collection Rate</div>
+          <div className=\"h-56\">
+            <ResponsiveContainer>
+              <PieChart>
+                <Pie data={pie} cx=\"50%\" cy=\"50%\" innerRadius={50} outerRadius={80} dataKey=\"value\">
+                  {pie.map((_, i) => <Cell key={i} fill={CHART_COLORS[i]} />)}
+                </Pie>
+                <Legend iconType=\"square\" />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+        <div className=\"bms-card p-6\">
+          <div className=\"eyebrow mb-4\">Monthly Revenue</div>
+          <div className=\"font-display text-5xl font-light text-slate-900\">${(s.revenueThisMonth ?? 0).toLocaleString()}</div>
+          <p className=\"text-sm text-slate-500 mt-2\">This month · settled transactions</p>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function ResidentView({ stats }) {
+  const s = stats || {};
+  return (
+    <div className=\"grid grid-cols-2 lg:grid-cols-4 gap-4\">
+      <KPICard label=\"Pending Bills\" value={s.pendingBills ?? 0} icon={Receipt} accent=\"safety\" testId=\"kpi-my-bills\" />
+      <KPICard label=\"Active Complaints\" value={s.activeComplaints ?? 0} icon={Wrench} accent=\"warning\" testId=\"kpi-my-complaints\" />
+      <KPICard label=\"Upcoming Visitors\" value={s.upcomingVisitors ?? 0} icon={UserCheck} accent=\"brand\" testId=\"kpi-my-visitors\" />
+      <KPICard label=\"My Parking\" value={s.myParking ?? 0} icon={CarFront} accent=\"slate\" testId=\"kpi-my-parking\" />
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Dashboard.jsx
+
+
+Now the remaining feature pages in parallel:
+Action: file_editor create /app/frontend/src/pages/Buildings.jsx --file-text "import React, { useEffect, useState } from \"react\";
+import { api, unwrap } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+import { PageHeader } from \"@/components/PageHeader\";
+import DataTable from \"@/components/DataTable\";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from \"@/components/ui/dialog\";
+import { Plus, Building2 } from \"lucide-react\";
+import StatusBadge from \"@/components/StatusBadge\";
+import { toast } from \"sonner\";
+
+export default function Buildings() {
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  const load = () => {
+    setLoading(true);
+    api.get(EP.buildings.list).then((r) => setRows(unwrap(r) || [])).catch(() => setRows([])).finally(() => setLoading(false));
+  };
+  useEffect(() => { load(); }, []);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const body = Object.fromEntries(f.entries());
+    try {
+      await api.post(EP.buildings.list, body);
+      toast.success(\"Building created\");
+      setOpen(false);
+      load();
+    } catch (err) {
+      toast.error(err.response?.data?.message || \"Failed to create\");
+    }
+  };
+
+  return (
+    <div className=\"space-y-8\" data-testid=\"buildings-page\">
+      <PageHeader
+        eyebrow=\"Portfolio\"
+        title=\"Buildings\"
+        description=\"Your property portfolio — create buildings, manage wings, track units.\"
+        actions={
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <button className=\"btn-primary\" data-testid=\"create-building-btn\"><Plus className=\"w-4 h-4\" /> New Building</button>
+            </DialogTrigger>
+            <DialogContent className=\"rounded-none sm:max-w-lg\">
+              <DialogHeader><DialogTitle className=\"font-display text-2xl\">Register Building</DialogTitle></DialogHeader>
+              <form onSubmit={submit} className=\"grid sm:grid-cols-2 gap-4\" data-testid=\"building-form\">
+                <div className=\"sm:col-span-2\"><label className=\"bms-label\">Building Name</label><input required name=\"buildingName\" className=\"bms-input\" data-testid=\"bld-name\" /></div>
+                <div><label className=\"bms-label\">Type</label>
+                  <select name=\"buildingType\" className=\"bms-input\" data-testid=\"bld-type\">
+                    <option>Residential</option><option>Commercial</option><option>Mixed</option>
+                  </select>
+                </div>
+                <div><label className=\"bms-label\">Total Units</label><input type=\"number\" name=\"totalUnits\" className=\"bms-input\" data-testid=\"bld-units\" /></div>
+                <div className=\"sm:col-span-2\"><label className=\"bms-label\">Address</label><input required name=\"address\" className=\"bms-input\" data-testid=\"bld-address\" /></div>
+                <div><label className=\"bms-label\">City</label><input required name=\"city\" className=\"bms-input\" data-testid=\"bld-city\" /></div>
+                <div><label className=\"bms-label\">State</label><input required name=\"state\" className=\"bms-input\" data-testid=\"bld-state\" /></div>
+                <div><label className=\"bms-label\">Zip</label><input required name=\"zipCode\" className=\"bms-input\" data-testid=\"bld-zip\" /></div>
+                <button className=\"btn-primary sm:col-span-2 h-12\" data-testid=\"bld-submit\">Create Building</button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        }
+      />
+      <DataTable
+        rowKey=\"buildingId\"
+        loading={loading}
+        rows={rows}
+        searchableKeys={[\"buildingName\", \"city\", \"address\"]}
+        testId=\"buildings-table\"
+        columns={[
+          { key: \"buildingName\", label: \"Building\", render: (r) => (
+            <div className=\"flex items-center gap-3\">
+              <div className=\"w-9 h-9 bg-brand-50 text-brand flex items-center justify-center\"><Building2 className=\"w-4 h-4\" /></div>
+              <div><div className=\"font-medium text-slate-900\">{r.buildingName}</div><div className=\"text-xs text-slate-500 font-mono\">{r.buildingId?.slice(0,8)}</div></div>
+            </div>
+          )},
+          { key: \"buildingType\", label: \"Type\" },
+          { key: \"address\", label: \"Address\", render: (r) => <span>{r.address}, {r.city}</span> },
+          { key: \"totalUnits\", label: \"Units\" },
+          { key: \"isActive\", label: \"Status\", render: (r) => <StatusBadge status={r.isActive ? \"Active\" : \"Inactive\"} /> },
+        ]}
+      />
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Buildings.jsx
+
+
+
+Action: file_editor create /app/frontend/src/pages/Users.jsx --file-text "import React, { useEffect, useState } from \"react\";
+import { api, unwrap } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+import { PageHeader } from \"@/components/PageHeader\";
+import DataTable from \"@/components/DataTable\";
+import StatusBadge from \"@/components/StatusBadge\";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from \"@/components/ui/dialog\";
+import { Plus } from \"lucide-react\";
+import { toast } from \"sonner\";
+
+const ROLES = [\"SuperAdmin\",\"BuildingAdmin\",\"SecurityStaff\",\"MaintenanceStaff\",\"CanteenStaff\",\"Resident\",\"Tenant\"];
+
+export default function Users() {
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  const load = () => {
+    setLoading(true);
+    api.get(EP.users.list).then((r) => setRows(unwrap(r) || [])).catch(() => setRows([])).finally(() => setLoading(false));
+  };
+  useEffect(() => { load(); }, []);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const body = Object.fromEntries(new FormData(e.target).entries());
+    try {
+      await api.post(EP.users.list, body);
+      toast.success(\"User created\");
+      setOpen(false); load();
+    } catch (err) { toast.error(err.response?.data?.message || \"Failed\"); }
+  };
+
+  return (
+    <div className=\"space-y-8\" data-testid=\"users-page\">
+      <PageHeader
+        eyebrow=\"Directory\"
+        title=\"Users\"
+        description=\"Admins, staff, residents & tenants — all your accounts in one directory.\"
+        actions={
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild><button className=\"btn-primary\" data-testid=\"create-user-btn\"><Plus className=\"w-4 h-4\"/> New User</button></DialogTrigger>
+            <DialogContent className=\"rounded-none sm:max-w-lg\">
+              <DialogHeader><DialogTitle className=\"font-display text-2xl\">Invite User</DialogTitle></DialogHeader>
+              <form onSubmit={submit} className=\"grid sm:grid-cols-2 gap-4\" data-testid=\"user-form\">
+                <div><label className=\"bms-label\">First name</label><input required name=\"firstName\" className=\"bms-input\" data-testid=\"user-firstname\"/></div>
+                <div><label className=\"bms-label\">Last name</label><input required name=\"lastName\" className=\"bms-input\" data-testid=\"user-lastname\"/></div>
+                <div className=\"sm:col-span-2\"><label className=\"bms-label\">Email</label><input required type=\"email\" name=\"email\" className=\"bms-input\" data-testid=\"user-email\"/></div>
+                <div><label className=\"bms-label\">Phone</label><input name=\"phone\" className=\"bms-input\" data-testid=\"user-phone\"/></div>
+                <div><label className=\"bms-label\">Role</label>
+                  <select name=\"role\" className=\"bms-input\" data-testid=\"user-role\">
+                    {ROLES.map(r => <option key={r}>{r}</option>)}
+                  </select>
+                </div>
+                <button className=\"btn-primary sm:col-span-2 h-12\" data-testid=\"user-submit\">Create User</button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        }
+      />
+      <DataTable
+        rowKey=\"userId\"
+        loading={loading}
+        rows={rows}
+        searchableKeys={[\"firstName\",\"lastName\",\"email\",\"role\"]}
+        testId=\"users-table\"
+        columns={[
+          { key: \"name\", label: \"Name\", render: (r) => (
+            <div className=\"flex items-center gap-3\">
+              <div className=\"w-9 h-9 bg-slate-900 text-white flex items-center justify-center font-display text-sm\">{r.firstName?.[0]}{r.lastName?.[0]}</div>
+              <div><div className=\"font-medium text-slate-900\">{r.firstName} {r.lastName}</div><div className=\"text-xs text-slate-500\">{r.email}</div></div>
+            </div>
+          )},
+          { key: \"role\", label: \"Role\", render: (r) => <span className=\"font-mono text-xs tracking-wider uppercase text-brand\">{r.role}</span> },
+          { key: \"phone\", label: \"Phone\", render: (r) => r.phone || <span className=\"text-slate-400\">—</span> },
+          { key: \"isActive\", label: \"Status\", render: (r) => <StatusBadge status={r.isActive ? \"Active\" : \"Inactive\"} /> },
+        ]}
+      />
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Users.jsx
+
+
+
+Action: file_editor create /app/frontend/src/pages/Billing.jsx --file-text "import React, { useEffect, useState } from \"react\";
+import { api, unwrap } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+import { PageHeader } from \"@/components/PageHeader\";
+import DataTable from \"@/components/DataTable\";
+import StatusBadge from \"@/components/StatusBadge\";
+import { useAuth } from \"@/contexts/AuthContext\";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from \"@/components/ui/dialog\";
+import { CreditCard, Plus } from \"lucide-react\";
+import { toast } from \"sonner\";
+
+const ADMIN_ROLES = [\"SuperAdmin\",\"BuildingAdmin\"];
+
+export default function Billing() {
+  const { user } = useAuth();
+  const [rows, setRows] = useState([]);
+  const [summary, setSummary] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [payOpen, setPayOpen] = useState(null);
+
+  const load = () => {
+    setLoading(true);
+    Promise.all([
+      api.get(EP.billing.list).then(r => unwrap(r) || []).catch(() => []),
+      ADMIN_ROLES.includes(user.role) ? api.get(EP.billing.summary).then(r => unwrap(r)).catch(() => null) : Promise.resolve(null),
+    ]).then(([bills, sum]) => { setRows(bills); setSummary(sum); setLoading(false); });
+  };
+  useEffect(load, [user.role]);
+
+  const createBill = async (e) => {
+    e.preventDefault();
+    const body = Object.fromEntries(new FormData(e.target).entries());
+    try {
+      await api.post(EP.billing.list, body);
+      toast.success(\"Bill created\"); setOpen(false); load();
+    } catch (err) { toast.error(err.response?.data?.message || \"Failed\"); }
+  };
+
+  const pay = async (bill) => {
+    try {
+      await api.post(EP.billing.pay(bill.billId), { paymentMethod: \"Stripe\", transactionRef: \"pi_demo_\" + Date.now(), amount: bill.totalAmount });
+      toast.success(\"Payment successful\");
+      setPayOpen(null); load();
+    } catch (err) { toast.error(err.response?.data?.message || \"Payment failed\"); }
+  };
+
+  return (
+    <div className=\"space-y-8\" data-testid=\"billing-page\">
+      <PageHeader
+        eyebrow=\"Finance\"
+        title=\"Billing\"
+        description=\"Invoices, maintenance, utilities & payments.\"
+        actions={ADMIN_ROLES.includes(user.role) && (
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild><button className=\"btn-primary\" data-testid=\"create-bill-btn\"><Plus className=\"w-4 h-4\"/> New Bill</button></DialogTrigger>
+            <DialogContent className=\"rounded-none sm:max-w-lg\">
+              <DialogHeader><DialogTitle className=\"font-display text-2xl\">Issue Bill</DialogTitle></DialogHeader>
+              <form onSubmit={createBill} className=\"grid sm:grid-cols-2 gap-4\" data-testid=\"bill-form\">
+                <div><label className=\"bms-label\">Bill Type</label>
+                  <select name=\"billType\" className=\"bms-input\"><option>Maintenance</option><option>Electricity</option><option>Water</option><option>Other</option></select>
+                </div>
+                <div><label className=\"bms-label\">Bill Month</label><input type=\"date\" name=\"billMonth\" className=\"bms-input\" required/></div>
+                <div><label className=\"bms-label\">Amount</label><input type=\"number\" step=\"0.01\" name=\"amount\" className=\"bms-input\" required/></div>
+                <div><label className=\"bms-label\">Tax</label><input type=\"number\" step=\"0.01\" name=\"taxAmount\" className=\"bms-input\" defaultValue=\"0\"/></div>
+                <div className=\"sm:col-span-2\"><label className=\"bms-label\">Due Date</label><input type=\"date\" name=\"dueDate\" className=\"bms-input\" required/></div>
+                <div><label className=\"bms-label\">Unit ID</label><input name=\"unitId\" className=\"bms-input\" placeholder=\"un-1\"/></div>
+                <div><label className=\"bms-label\">User ID</label><input name=\"userId\" className=\"bms-input\" placeholder=\"u-3\"/></div>
+                <button className=\"btn-primary sm:col-span-2 h-12\">Issue Bill</button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        )}
+      />
+
+      {summary && (
+        <div className=\"grid grid-cols-2 lg:grid-cols-4 gap-4\">
+          <div className=\"bms-card p-6\"><div className=\"eyebrow\">Collected</div><div className=\"font-display text-3xl mt-2\">${(summary.totalCollected||0).toLocaleString()}</div></div>
+          <div className=\"bms-card p-6\"><div className=\"eyebrow\">Pending</div><div className=\"font-display text-3xl mt-2 text-safety\">${(summary.totalPending||0).toLocaleString()}</div></div>
+          <div className=\"bms-card p-6\"><div className=\"eyebrow\">Paid Invoices</div><div className=\"font-display text-3xl mt-2\">{summary.countPaid||0}</div></div>
+          <div className=\"bms-card p-6\"><div className=\"eyebrow\">Pending Invoices</div><div className=\"font-display text-3xl mt-2\">{summary.countPending||0}</div></div>
+        </div>
+      )}
+
+      <DataTable
+        rowKey=\"billId\"
+        loading={loading}
+        rows={rows}
+        searchableKeys={[\"billType\",\"status\"]}
+        testId=\"billing-table\"
+        columns={[
+          { key: \"billId\", label: \"Invoice\", render: (r) => <span className=\"font-mono text-xs text-slate-600\">#{r.billId?.slice(0,8)}</span> },
+          { key: \"billType\", label: \"Type\" },
+          { key: \"billMonth\", label: \"Month\", render: (r) => (r.billMonth || \"\").slice(0,7) },
+          { key: \"totalAmount\", label: \"Amount\", render: (r) => <span className=\"font-display font-medium\">${Number(r.totalAmount || 0).toFixed(2)}</span> },
+          { key: \"dueDate\", label: \"Due\", render: (r) => (r.dueDate || \"\").slice(0,10) },
+          { key: \"status\", label: \"Status\", render: (r) => <StatusBadge status={r.status} /> },
+          { key: \"action\", label: \"\", render: (r) => r.status !== \"Paid\" ? (
+            <button className=\"btn-primary h-8 px-3 text-xs\" onClick={() => setPayOpen(r)} data-testid={`pay-btn-${r.billId}`}><CreditCard className=\"w-3 h-3\"/> Pay</button>
+          ) : null },
+        ]}
+      />
+
+      <Dialog open={!!payOpen} onOpenChange={(v) => !v && setPayOpen(null)}>
+        <DialogContent className=\"rounded-none sm:max-w-md\">
+          <DialogHeader><DialogTitle className=\"font-display text-2xl\">Confirm Payment</DialogTitle></DialogHeader>
+          {payOpen && (
+            <div className=\"space-y-4\">
+              <div className=\"border border-slate-200 p-4\">
+                <div className=\"eyebrow\">Amount Due</div>
+                <div className=\"font-display text-4xl font-light mt-2\">${Number(payOpen.totalAmount).toFixed(2)}</div>
+                <div className=\"text-xs text-slate-500 mt-2 font-mono\">Invoice #{payOpen.billId?.slice(0,8)} · {payOpen.billType}</div>
+              </div>
+              <div className=\"text-xs text-slate-500\">Payment will be processed through Stripe (demo transaction reference will be generated).</div>
+              <button className=\"btn-primary w-full h-12\" onClick={() => pay(payOpen)} data-testid=\"confirm-pay-btn\">Pay Now</button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Billing.jsx
+
+
+
+Action: file_editor create /app/frontend/src/pages/Parking.jsx --file-text "import React, { useEffect, useState } from \"react\";
+import { api, unwrap } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+import { PageHeader } from \"@/components/PageHeader\";
+import StatusBadge from \"@/components/StatusBadge\";
+import { CarFront, Bike } from \"lucide-react\";
+import { toast } from \"sonner\";
+import { cn } from \"@/lib/utils\";
+
+export default function Parking() {
+  const [slots, setSlots] = useState([]);
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const load = () => {
+    Promise.all([
+      api.get(EP.parking.slots).then(r => unwrap(r) || []).catch(() => []),
+      api.get(EP.parking.bookings).then(r => unwrap(r) || []).catch(() => []),
+    ]).then(([s, b]) => { setSlots(s); setBookings(b); setLoading(false); });
+  };
+  useEffect(load, []);
+
+  const book = async (slot) => {
+    try {
+      await api.post(EP.parking.book, { slotId: slot.slotId, startTime: new Date().toISOString(), endTime: new Date(Date.now()+3600000).toISOString() });
+      toast.success(`Booked ${slot.slotNumber}`); load();
+    } catch (err) { toast.error(err.response?.data?.message || \"Failed\"); }
+  };
+
+  const cancel = async (b) => {
+    try { await api.put(EP.parking.cancel(b.bookingId)); toast.success(\"Cancelled\"); load(); }
+    catch (err) { toast.error(err.response?.data?.message || \"Failed\"); }
+  };
+
+  const floors = [...new Set(slots.map(s => s.floor))].sort();
+
+  return (
+    <div className=\"space-y-8\" data-testid=\"parking-page\">
+      <PageHeader eyebrow=\"Mobility\" title=\"Parking\" description=\"Real-time slot availability. Tap an available slot to reserve.\" />
+
+      {loading ? <div className=\"bms-card h-64 animate-pulse\" /> : (
+        <>
+          <div className=\"space-y-6\">
+            {floors.map(floor => (
+              <div key={floor} className=\"bms-card p-6\">
+                <div className=\"flex items-center justify-between mb-4\">
+                  <div><div className=\"eyebrow\">Floor</div><div className=\"font-display text-2xl mt-1\">{floor}</div></div>
+                  <div className=\"font-mono text-xs text-slate-500\">{slots.filter(s=>s.floor===floor && s.status===\"Available\").length} / {slots.filter(s=>s.floor===floor).length} available</div>
+                </div>
+                <div className=\"grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-2\">
+                  {slots.filter(s => s.floor === floor).map(slot => (
+                    <button
+                      key={slot.slotId}
+                      disabled={slot.status !== \"Available\"}
+                      onClick={() => book(slot)}
+                      data-testid={`slot-${slot.slotNumber}`}
+                      className={cn(
+                        \"aspect-square border-2 flex flex-col items-center justify-center gap-1 transition-all\",
+                        slot.status === \"Available\" && \"border-emerald-500 bg-emerald-50 hover:bg-emerald-100 text-emerald-900 cursor-pointer\",
+                        slot.status === \"Occupied\" && \"border-safety bg-orange-50 text-safety cursor-not-allowed opacity-70\",
+                      )}>
+                      {slot.slotType === \"Bike\" ? <Bike className=\"w-5 h-5\"/> : <CarFront className=\"w-5 h-5\"/>}
+                      <div className=\"font-mono text-[11px] font-bold\">{slot.slotNumber}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className=\"bms-card\">
+            <div className=\"p-4 border-b border-slate-200 eyebrow\">My Bookings</div>
+            {bookings.length === 0 ? (
+              <div className=\"p-8 text-sm text-slate-500 text-center\">No active bookings.</div>
+            ) : (
+              <div className=\"divide-y divide-slate-100\">
+                {bookings.map(b => (
+                  <div key={b.bookingId} className=\"p-4 flex items-center justify-between\" data-testid={`booking-${b.bookingId}`}>
+                    <div>
+                      <div className=\"font-medium\">Slot {slots.find(s=>s.slotId===b.slotId)?.slotNumber || b.slotId?.slice(0,8)}</div>
+                      <div className=\"text-xs text-slate-500 font-mono\">{(b.startTime||\"\").slice(0,16)}</div>
+                    </div>
+                    <div className=\"flex items-center gap-3\">
+                      <StatusBadge status={b.status} />
+                      {b.status === \"Active\" && <button className=\"btn-secondary h-8 px-3 text-xs\" onClick={() => cancel(b)}>Cancel</button>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Parking.jsx
+
+
+
+Action: file_editor create /app/frontend/src/pages/Visitors.jsx --file-text "import React, { useEffect, useState } from \"react\";
+import { api, unwrap } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+import { PageHeader } from \"@/components/PageHeader\";
+import DataTable from \"@/components/DataTable\";
+import StatusBadge from \"@/components/StatusBadge\";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from \"@/components/ui/dialog\";
+import { Plus, LogIn, LogOut, QrCode } from \"lucide-react\";
+import { useAuth } from \"@/contexts/AuthContext\";
+import { toast } from \"sonner\";
+
+const SEC_ROLES = [\"SuperAdmin\",\"BuildingAdmin\",\"SecurityStaff\"];
+
+export default function Visitors() {
+  const { user } = useAuth();
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [qr, setQr] = useState(null);
+
+  const load = () => {
+    setLoading(true);
+    api.get(EP.visitors.list).then(r => setRows(unwrap(r) || [])).catch(() => setRows([])).finally(() => setLoading(false));
+  };
+  useEffect(load, []);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const body = Object.fromEntries(new FormData(e.target).entries());
+    try {
+      const res = await api.post(EP.visitors.list, body);
+      const v = unwrap(res);
+      toast.success(\"Visitor pre-registered\");
+      setOpen(false);
+      if (v.qrCode) setQr(v);
+      load();
+    } catch (err) { toast.error(err.response?.data?.message || \"Failed\"); }
+  };
+
+  const checkIn = async (v) => { try { await api.post(EP.visitors.checkin(v.visitorId)); toast.success(\"Checked in\"); load(); } catch (e) { toast.error(\"Failed\"); } };
+  const checkOut = async (v) => { try { await api.post(EP.visitors.checkout(v.visitorId)); toast.success(\"Checked out\"); load(); } catch (e) { toast.error(\"Failed\"); } };
+
+  return (
+    <div className=\"space-y-8\" data-testid=\"visitors-page\">
+      <PageHeader
+        eyebrow=\"Security\"
+        title=\"Visitors\"
+        description=\"Pre-register guests with QR codes, and log check-in / check-out.\"
+        actions={
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild><button className=\"btn-primary\" data-testid=\"register-visitor-btn\"><Plus className=\"w-4 h-4\"/> Pre-register</button></DialogTrigger>
+            <DialogContent className=\"rounded-none sm:max-w-lg\">
+              <DialogHeader><DialogTitle className=\"font-display text-2xl\">Pre-register Visitor</DialogTitle></DialogHeader>
+              <form onSubmit={submit} className=\"grid sm:grid-cols-2 gap-4\" data-testid=\"visitor-form\">
+                <div className=\"sm:col-span-2\"><label className=\"bms-label\">Visitor Name</label><input required name=\"visitorName\" className=\"bms-input\" data-testid=\"vis-name\"/></div>
+                <div><label className=\"bms-label\">Phone</label><input required name=\"visitorPhone\" className=\"bms-input\" data-testid=\"vis-phone\"/></div>
+                <div><label className=\"bms-label\">Type</label>
+                  <select name=\"visitorType\" className=\"bms-input\" data-testid=\"vis-type\"><option>Personal</option><option>Delivery</option><option>Service</option><option>Business</option></select>
+                </div>
+                <div className=\"sm:col-span-2\"><label className=\"bms-label\">Purpose</label><input required name=\"purpose\" className=\"bms-input\" data-testid=\"vis-purpose\"/></div>
+                <div className=\"sm:col-span-2\"><label className=\"bms-label\">Expected Arrival</label><input required type=\"datetime-local\" name=\"expectedArrival\" className=\"bms-input\" data-testid=\"vis-arrival\"/></div>
+                <button className=\"btn-primary sm:col-span-2 h-12\">Generate Pass</button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        }
+      />
+
+      <DataTable
+        rowKey=\"visitorId\"
+        loading={loading}
+        rows={rows}
+        searchableKeys={[\"visitorName\",\"visitorPhone\",\"purpose\",\"status\"]}
+        testId=\"visitors-table\"
+        columns={[
+          { key: \"visitorName\", label: \"Visitor\", render: (r) => <div><div className=\"font-medium text-slate-900\">{r.visitorName}</div><div className=\"text-xs text-slate-500 font-mono\">{r.visitorPhone}</div></div>},
+          { key: \"purpose\", label: \"Purpose\" },
+          { key: \"visitorType\", label: \"Type\", render: (r) => <span className=\"font-mono text-[11px] uppercase tracking-wider text-slate-500\">{r.visitorType}</span> },
+          { key: \"expectedArrival\", label: \"Expected\", render: (r) => (r.expectedArrival || \"\").slice(0,16).replace(\"T\",\" \") },
+          { key: \"status\", label: \"Status\", render: (r) => <StatusBadge status={r.status} /> },
+          { key: \"action\", label: \"\", render: (r) => (
+            <div className=\"flex items-center gap-2 justify-end\">
+              {r.qrCode && <button className=\"btn-secondary h-8 px-2\" onClick={() => setQr(r)} data-testid={`qr-${r.visitorId}`}><QrCode className=\"w-3.5 h-3.5\"/></button>}
+              {SEC_ROLES.includes(user.role) && r.status === \"Expected\" && <button className=\"btn-primary h-8 px-3 text-xs\" onClick={() => checkIn(r)} data-testid={`checkin-${r.visitorId}`}><LogIn className=\"w-3 h-3\"/> In</button>}
+              {SEC_ROLES.includes(user.role) && r.status === \"CheckedIn\" && <button className=\"btn-danger h-8 px-3 text-xs\" onClick={() => checkOut(r)} data-testid={`checkout-${r.visitorId}`}><LogOut className=\"w-3 h-3\"/> Out</button>}
+            </div>
+          )},
+        ]}
+      />
+
+      <Dialog open={!!qr} onOpenChange={(v) => !v && setQr(null)}>
+        <DialogContent className=\"rounded-none sm:max-w-sm\">
+          <DialogHeader><DialogTitle className=\"font-display text-2xl\">Visitor Pass</DialogTitle></DialogHeader>
+          {qr && (
+            <div className=\"text-center\">
+              <div className=\"eyebrow mb-3\">{qr.visitorName}</div>
+              {qr.qrCode && <img src={qr.qrCode} alt=\"QR\" className=\"mx-auto border-2 border-slate-900 p-2 bg-white\" />}
+              <div className=\"mt-4 text-xs font-mono text-slate-500\">ID: {qr.visitorId?.slice(0,8)}</div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Visitors.jsx
+
+
+Action: file_editor create /app/frontend/src/pages/Canteen.jsx --file-text "import React, { useEffect, useMemo, useState } from \"react\";
+import { api, unwrap } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+import { PageHeader } from \"@/components/PageHeader\";
+import StatusBadge from \"@/components/StatusBadge\";
+import { Plus, Minus, ShoppingCart, Check } from \"lucide-react\";
+import { toast } from \"sonner\";
+import { cn } from \"@/lib/utils\";
+
+export default function Canteen() {
+  const [menu, setMenu] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [cart, setCart] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const load = () => {
+    Promise.all([
+      api.get(EP.canteen.menu).then(r => unwrap(r) || []).catch(() => []),
+      api.get(EP.canteen.orders).then(r => unwrap(r) || []).catch(() => []),
+    ]).then(([m, o]) => { setMenu(m); setOrders(o); setLoading(false); });
+  };
+  useEffect(load, []);
+
+  const categories = useMemo(() => [...new Set(menu.map(m => m.category))], [menu]);
+  const totalQty = Object.values(cart).reduce((a,b)=>a+b,0);
+  const cartItems = Object.entries(cart).map(([id,q]) => ({ item: menu.find(m=>m.menuId===id), q })).filter(x=>x.item);
+  const total = cartItems.reduce((a,c)=> a + c.q * c.item.price, 0);
+
+  const addItem = (id) => setCart(c => ({ ...c, [id]: (c[id]||0) + 1 }));
+  const subItem = (id) => setCart(c => { const n = (c[id]||0) - 1; if (n<=0) { const {[id]:_,...rest}=c; return rest; } return { ...c, [id]: n }; });
+
+  const placeOrder = async () => {
+    try {
+      await api.post(EP.canteen.orders, {
+        items: Object.entries(cart).map(([menuId, quantity]) => ({ menuId, quantity })),
+        deliveryTime: \"12:30:00\",
+      });
+      toast.success(\"Order placed\");
+      setCart({}); load();
+    } catch (err) { toast.error(err.response?.data?.message || \"Failed\"); }
+  };
+
+  return (
+    <div className=\"space-y-8\" data-testid=\"canteen-page\">
+      <PageHeader eyebrow=\"Services\" title=\"Canteen\" description=\"Browse today's menu, build your order, track status.\" />
+
+      {loading ? <div className=\"bms-card h-64 animate-pulse\" /> : (
+        <div className=\"grid lg:grid-cols-[2fr_1fr] gap-6\">
+          <div className=\"space-y-8\">
+            {categories.map(cat => (
+              <section key={cat}>
+                <div className=\"eyebrow mb-4\">{cat}</div>
+                <div className=\"grid sm:grid-cols-2 gap-4\">
+                  {menu.filter(m => m.category === cat).map(item => (
+                    <div key={item.menuId} className={cn(\"bms-card p-5 flex flex-col\", !item.isAvailable && \"opacity-60\")} data-testid={`menu-${item.menuId}`}>
+                      <div className=\"flex items-start justify-between gap-3\">
+                        <div>
+                          <div className=\"font-display text-lg font-medium\">{item.itemName}</div>
+                          <div className=\"text-xs text-slate-500 mt-1\">{item.description}</div>
+                        </div>
+                        <div className=\"font-display text-xl font-semibold text-brand\">${item.price.toFixed(2)}</div>
+                      </div>
+                      <div className=\"flex-1\" />
+                      {item.isAvailable ? (
+                        cart[item.menuId] ? (
+                          <div className=\"mt-4 flex items-center justify-between border border-slate-300 p-1\">
+                            <button className=\"w-8 h-8 hover:bg-slate-100\" onClick={() => subItem(item.menuId)} data-testid={`sub-${item.menuId}`}><Minus className=\"w-4 h-4 mx-auto\"/></button>
+                            <span className=\"font-mono font-semibold\">{cart[item.menuId]}</span>
+                            <button className=\"w-8 h-8 hover:bg-slate-100\" onClick={() => addItem(item.menuId)} data-testid={`add-${item.menuId}`}><Plus className=\"w-4 h-4 mx-auto\"/></button>
+                          </div>
+                        ) : (
+                          <button className=\"btn-secondary mt-4 h-9\" onClick={() => addItem(item.menuId)} data-testid={`addtocart-${item.menuId}`}><Plus className=\"w-4 h-4\"/> Add</button>
+                        )
+                      ) : (
+                        <div className=\"mt-4 text-xs uppercase tracking-wider text-safety font-semibold\">Unavailable</div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+
+          <aside className=\"space-y-6 lg:sticky lg:top-24 h-fit\">
+            <div className=\"bms-card p-6\" data-testid=\"cart\">
+              <div className=\"flex items-center justify-between mb-4\">
+                <div><div className=\"eyebrow\">Your Cart</div><div className=\"font-display text-2xl\">{totalQty} items</div></div>
+                <ShoppingCart className=\"w-5 h-5 text-slate-400\" />
+              </div>
+              {cartItems.length === 0 ? (
+                <div className=\"text-sm text-slate-400 py-6 text-center border border-dashed border-slate-200\">Cart is empty</div>
+              ) : (
+                <>
+                  <div className=\"divide-y divide-slate-100 mb-4\">
+                    {cartItems.map(({item,q}) => (
+                      <div key={item.menuId} className=\"py-2 flex justify-between text-sm\">
+                        <span><span className=\"font-mono text-brand\">{q}×</span> {item.itemName}</span>
+                        <span className=\"font-display font-medium\">${(item.price*q).toFixed(2)}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className=\"flex justify-between font-display text-xl border-t pt-3\">
+                    <span>Total</span><span className=\"text-brand\">${total.toFixed(2)}</span>
+                  </div>
+                  <button onClick={placeOrder} className=\"btn-primary w-full h-12 mt-4\" data-testid=\"place-order-btn\"><Check className=\"w-4 h-4\"/> Place Order</button>
+                </>
+              )}
+            </div>
+
+            <div className=\"bms-card\">
+              <div className=\"p-4 border-b border-slate-200 eyebrow\">Recent Orders</div>
+              <div className=\"divide-y divide-slate-100 max-h-80 overflow-y-auto\">
+                {orders.length === 0 ? <div className=\"p-6 text-sm text-slate-400 text-center\">No orders yet</div> :
+                  orders.slice(0,5).map(o => (
+                    <div key={o.orderId} className=\"p-4 text-sm\">
+                      <div className=\"flex justify-between\">
+                        <span className=\"font-mono text-xs text-slate-500\">#{o.orderId?.slice(0,6)}</span>
+                        <StatusBadge status={o.status} />
+                      </div>
+                      <div className=\"font-display text-lg mt-1\">${Number(o.totalAmount||0).toFixed(2)}</div>
+                      <div className=\"text-xs text-slate-500\">{o.items?.length || 0} items</div>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </aside>
+        </div>
+      )}
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Canteen.jsx
+
+
+
+Action: file_editor create /app/frontend/src/pages/Complaints.jsx --file-text "import React, { useEffect, useState } from \"react\";
+import { api, unwrap } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+import { PageHeader } from \"@/components/PageHeader\";
+import StatusBadge from \"@/components/StatusBadge\";
+import EmptyState from \"@/components/EmptyState\";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from \"@/components/ui/dialog\";
+import { Plus, Wrench, Star } from \"lucide-react\";
+import { useAuth } from \"@/contexts/AuthContext\";
+import { toast } from \"sonner\";
+
+const STAFF_ROLES = [\"SuperAdmin\",\"BuildingAdmin\",\"MaintenanceStaff\"];
+const STATUSES = [\"Open\",\"Assigned\",\"InProgress\",\"Resolved\",\"Closed\"];
+
+export default function Complaints() {
+  const { user } = useAuth();
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  const load = () => {
+    setLoading(true);
+    api.get(EP.complaints.list).then(r => setRows(unwrap(r) || [])).catch(()=>setRows([])).finally(()=>setLoading(false));
+  };
+  useEffect(load, []);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const body = Object.fromEntries(new FormData(e.target).entries());
+    try { await api.post(EP.complaints.list, body); toast.success(\"Complaint raised\"); setOpen(false); load(); }
+    catch(err) { toast.error(err.response?.data?.message || \"Failed\"); }
+  };
+
+  const updateStatus = async (c, status) => {
+    try { await api.put(EP.complaints.status(c.complaintId), { status }); toast.success(\"Status updated\"); load(); }
+    catch(err) { toast.error(\"Failed\"); }
+  };
+
+  const rate = async (c, rating) => {
+    try { await api.post(EP.complaints.feedback(c.complaintId), { rating, feedback: \"\" }); toast.success(\"Thanks for your feedback\"); load(); }
+    catch(err) { toast.error(\"Failed\"); }
+  };
+
+  return (
+    <div className=\"space-y-8\" data-testid=\"complaints-page\">
+      <PageHeader
+        eyebrow=\"Maintenance\"
+        title=\"Complaints\"
+        description=\"Raise, assign, track and close maintenance issues with clarity.\"
+        actions={
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild><button className=\"btn-primary\" data-testid=\"raise-complaint-btn\"><Plus className=\"w-4 h-4\"/> Raise Complaint</button></DialogTrigger>
+            <DialogContent className=\"rounded-none sm:max-w-lg\">
+              <DialogHeader><DialogTitle className=\"font-display text-2xl\">New Complaint</DialogTitle></DialogHeader>
+              <form onSubmit={submit} className=\"space-y-4\" data-testid=\"complaint-form\">
+                <div><label className=\"bms-label\">Title</label><input required name=\"title\" className=\"bms-input\" data-testid=\"comp-title\"/></div>
+                <div className=\"grid grid-cols-2 gap-4\">
+                  <div><label className=\"bms-label\">Category</label>
+                    <select name=\"category\" className=\"bms-input\" data-testid=\"comp-category\"><option>Plumbing</option><option>Electrical</option><option>Cleaning</option><option>Security</option><option>Other</option></select>
+                  </div>
+                  <div><label className=\"bms-label\">Priority</label>
+                    <select name=\"priority\" className=\"bms-input\" data-testid=\"comp-priority\"><option>Low</option><option>Medium</option><option>High</option><option>Critical</option></select>
+                  </div>
+                </div>
+                <div><label className=\"bms-label\">Description</label><textarea required name=\"description\" rows={4} className=\"bms-input h-auto py-2\" data-testid=\"comp-desc\"/></div>
+                <button className=\"btn-primary w-full h-12\">Submit</button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        }
+      />
+
+      {loading ? <div className=\"bms-card h-40 animate-pulse\"/> :
+        rows.length === 0 ? <EmptyState icon={Wrench} title=\"No complaints yet\" description=\"Raise one — we'll route it to the right team.\" /> :
+        <div className=\"grid md:grid-cols-2 gap-4\">
+          {rows.map(c => (
+            <div key={c.complaintId} className=\"bms-card p-6 flex flex-col\" data-testid={`complaint-${c.complaintId}`}>
+              <div className=\"flex items-start justify-between gap-3\">
+                <div>
+                  <div className=\"eyebrow\">{c.category} · {c.priority}</div>
+                  <h3 className=\"font-display text-xl mt-1\">{c.title}</h3>
+                </div>
+                <StatusBadge status={c.status} />
+              </div>
+              <p className=\"text-sm text-slate-600 mt-3 leading-relaxed flex-1\">{c.description}</p>
+              <div className=\"mt-4 pt-4 border-t border-slate-100 flex items-center justify-between gap-3\">
+                <div className=\"text-xs font-mono text-slate-500\">#{c.complaintId?.slice(0,8)}</div>
+                <div className=\"flex items-center gap-2\">
+                  {STAFF_ROLES.includes(user.role) && c.status !== \"Resolved\" && c.status !== \"Closed\" && (
+                    <select className=\"h-8 px-2 border border-slate-300 text-xs rounded-none\" value={c.status} onChange={(e)=>updateStatus(c, e.target.value)} data-testid={`status-${c.complaintId}`}>
+                      {STATUSES.map(s => <option key={s}>{s}</option>)}
+                    </select>
+                  )}
+                  {(user.role === \"Resident\" || user.role === \"Tenant\") && c.status === \"Resolved\" && !c.rating && (
+                    <div className=\"flex items-center gap-0.5\">
+                      {[1,2,3,4,5].map(n => (
+                        <button key={n} onClick={() => rate(c, n)} className=\"p-0.5 hover:scale-110 transition\" data-testid={`rate-${c.complaintId}-${n}`}>
+                          <Star className=\"w-4 h-4 text-amber-400\" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      }
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Complaints.jsx
+
+
+
+Action: file_editor create /app/frontend/src/pages/Voting.jsx --file-text "import React, { useEffect, useState } from \"react\";
+import { api, unwrap } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+import { PageHeader } from \"@/components/PageHeader\";
+import StatusBadge from \"@/components/StatusBadge\";
+import EmptyState from \"@/components/EmptyState\";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from \"@/components/ui/dialog\";
+import { Plus, Vote as VoteIcon, Check, X } from \"lucide-react\";
+import { useAuth } from \"@/contexts/AuthContext\";
+import { toast } from \"sonner\";
+
+const ADMIN_ROLES = [\"SuperAdmin\",\"BuildingAdmin\"];
+
+export default function Voting() {
+  const { user } = useAuth();
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [optsText, setOptsText] = useState(\"\");
+
+  const load = () => {
+    setLoading(true);
+    api.get(EP.voting.list).then(r => setRows(unwrap(r) || [])).catch(()=>setRows([])).finally(()=>setLoading(false));
+  };
+  useEffect(load, []);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const body = Object.fromEntries(new FormData(e.target).entries());
+    body.options = optsText.split(\"\n\").map(s=>s.trim()).filter(Boolean);
+    try { await api.post(EP.voting.list, body); toast.success(\"Poll created\"); setOpen(false); setOptsText(\"\"); load(); }
+    catch(err) { toast.error(err.response?.data?.message || \"Failed\"); }
+  };
+
+  const vote = async (pollId, optionId) => {
+    try { await api.post(EP.voting.vote(pollId), { optionId }); toast.success(\"Vote recorded\"); load(); }
+    catch(err) { toast.error(err.response?.data?.message || \"Failed\"); }
+  };
+
+  const close = async (pollId) => {
+    try { await api.put(EP.voting.close(pollId)); toast.success(\"Poll closed\"); load(); } catch { toast.error(\"Failed\"); }
+  };
+
+  return (
+    <div className=\"space-y-8\" data-testid=\"voting-page\">
+      <PageHeader
+        eyebrow=\"Community\"
+        title=\"Voting & Polls\"
+        description=\"Collective decisions made transparent. Create, vote, and see live results.\"
+        actions={ADMIN_ROLES.includes(user.role) && (
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild><button className=\"btn-primary\" data-testid=\"create-poll-btn\"><Plus className=\"w-4 h-4\"/> New Poll</button></DialogTrigger>
+            <DialogContent className=\"rounded-none sm:max-w-lg\">
+              <DialogHeader><DialogTitle className=\"font-display text-2xl\">Create Poll</DialogTitle></DialogHeader>
+              <form onSubmit={submit} className=\"space-y-4\" data-testid=\"poll-form\">
+                <div><label className=\"bms-label\">Title</label><input required name=\"title\" className=\"bms-input\" data-testid=\"poll-title\"/></div>
+                <div><label className=\"bms-label\">Description</label><textarea name=\"description\" rows={3} className=\"bms-input h-auto py-2\" data-testid=\"poll-desc\"/></div>
+                <div><label className=\"bms-label\">Options (one per line)</label><textarea required rows={5} className=\"bms-input h-auto py-2 font-mono text-sm\" value={optsText} onChange={(e)=>setOptsText(e.target.value)} placeholder=\"Option A&#10;Option B&#10;Option C\" data-testid=\"poll-options\"/></div>
+                <div><label className=\"bms-label\">Closes at</label><input type=\"datetime-local\" name=\"closesAt\" className=\"bms-input\" data-testid=\"poll-closes\"/></div>
+                <button className=\"btn-primary w-full h-12\">Publish Poll</button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        )}
+      />
+
+      {loading ? <div className=\"bms-card h-40 animate-pulse\"/> :
+        rows.length === 0 ? <EmptyState icon={VoteIcon} title=\"No polls active\" description=\"Polls you create will appear here.\" /> :
+        <div className=\"grid md:grid-cols-2 gap-4\">
+          {rows.map(p => {
+            const total = (p.options || []).reduce((a,o)=>a+o.votes,0) || 1;
+            return (
+              <div key={p.pollId} className=\"bms-card p-6\" data-testid={`poll-${p.pollId}`}>
+                <div className=\"flex items-start justify-between gap-3\">
+                  <div>
+                    <div className=\"eyebrow\">Poll</div>
+                    <h3 className=\"font-display text-xl mt-1\">{p.title}</h3>
+                    {p.description && <p className=\"text-sm text-slate-600 mt-1\">{p.description}</p>}
+                  </div>
+                  <StatusBadge status={p.status} />
+                </div>
+                <div className=\"mt-6 space-y-3\">
+                  {(p.options || []).map(o => {
+                    const pct = Math.round((o.votes / total) * 100);
+                    return (
+                      <button
+                        key={o.optionId}
+                        onClick={() => p.status === \"Active\" && vote(p.pollId, o.optionId)}
+                        disabled={p.status !== \"Active\"}
+                        data-testid={`vote-${p.pollId}-${o.optionId}`}
+                        className=\"w-full text-left relative border border-slate-200 p-3 hover:border-brand transition disabled:cursor-not-allowed\"
+                      >
+                        <div className=\"absolute left-0 top-0 bottom-0 bg-brand-50\" style={{ width: `${pct}%` }} />
+                        <div className=\"relative flex items-center justify-between\">
+                          <span className=\"text-sm font-medium\">{o.text}</span>
+                          <span className=\"font-mono text-xs text-brand\">{o.votes} · {pct}%</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className=\"mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs\">
+                  <span className=\"font-mono text-slate-500\">{total} votes total</span>
+                  {ADMIN_ROLES.includes(user.role) && p.status === \"Active\" && (
+                    <button className=\"text-safety hover:underline flex items-center gap-1\" onClick={()=>close(p.pollId)} data-testid={`close-${p.pollId}`}><X className=\"w-3 h-3\"/> Close poll</button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      }
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Voting.jsx
+
+
+
+
+Action: file_editor create /app/frontend/src/pages/Notices.jsx --file-text "import React, { useEffect, useState } from \"react\";
+import { api, unwrap } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+import { PageHeader } from \"@/components/PageHeader\";
+import EmptyState from \"@/components/EmptyState\";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from \"@/components/ui/dialog\";
+import { Plus, Megaphone, Trash2 } from \"lucide-react\";
+import { useAuth } from \"@/contexts/AuthContext\";
+import { toast } from \"sonner\";
+
+const ADMIN_ROLES = [\"SuperAdmin\",\"BuildingAdmin\"];
+
+export default function Notices() {
+  const { user } = useAuth();
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const canEdit = ADMIN_ROLES.includes(user.role);
+
+  const load = () => { setLoading(true); api.get(EP.notices.list).then(r=>setRows(unwrap(r)||[])).catch(()=>setRows([])).finally(()=>setLoading(false)); };
+  useEffect(load, []);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const body = Object.fromEntries(new FormData(e.target).entries());
+    try { await api.post(EP.notices.list, body); toast.success(\"Notice published\"); setOpen(false); load(); }
+    catch(err) { toast.error(err.response?.data?.message || \"Failed\"); }
+  };
+
+  const remove = async (id) => { try { await api.delete(EP.notices.detail(id)); toast.success(\"Removed\"); load(); } catch { toast.error(\"Failed\"); } };
+
+  return (
+    <div className=\"space-y-8\" data-testid=\"notices-page\">
+      <PageHeader
+        eyebrow=\"Communications\"
+        title=\"Notice Board\"
+        description=\"Broadcast updates to the entire building.\"
+        actions={canEdit && (
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild><button className=\"btn-primary\" data-testid=\"create-notice-btn\"><Plus className=\"w-4 h-4\"/> Publish</button></DialogTrigger>
+            <DialogContent className=\"rounded-none sm:max-w-lg\">
+              <DialogHeader><DialogTitle className=\"font-display text-2xl\">Publish Notice</DialogTitle></DialogHeader>
+              <form onSubmit={submit} className=\"space-y-4\" data-testid=\"notice-form\">
+                <div><label className=\"bms-label\">Title</label><input required name=\"title\" className=\"bms-input\" data-testid=\"notice-title\"/></div>
+                <div className=\"grid grid-cols-2 gap-4\">
+                  <div><label className=\"bms-label\">Category</label>
+                    <select name=\"category\" className=\"bms-input\" data-testid=\"notice-category\"><option>General</option><option>Maintenance</option><option>Event</option><option>Emergency</option></select>
+                  </div>
+                  <div><label className=\"bms-label\">Priority</label>
+                    <select name=\"priority\" className=\"bms-input\" data-testid=\"notice-priority\"><option>Low</option><option>Normal</option><option>High</option></select>
+                  </div>
+                </div>
+                <div><label className=\"bms-label\">Content</label><textarea required name=\"content\" rows={5} className=\"bms-input h-auto py-2\" data-testid=\"notice-content\"/></div>
+                <button className=\"btn-primary w-full h-12\">Publish</button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        )}
+      />
+
+      {loading ? <div className=\"bms-card h-40 animate-pulse\"/> :
+        rows.length === 0 ? <EmptyState icon={Megaphone} title=\"No notices yet\" /> :
+        <div className=\"space-y-3\">
+          {rows.map(n => (
+            <article key={n.noticeId} className=\"bms-card p-6 flex gap-5 group hover:border-brand transition\" data-testid={`notice-${n.noticeId}`}>
+              <div className=\"w-1 bg-brand self-stretch\" />
+              <div className=\"flex-1 min-w-0\">
+                <div className=\"flex items-center gap-3 flex-wrap\">
+                  <span className=\"font-mono text-[11px] tracking-[0.18em] uppercase text-brand\">{n.category}</span>
+                  <span className=\"text-xs text-slate-500\">·</span>
+                  <span className=\"text-xs text-slate-500\">{(n.createdAt || \"\").slice(0,10)}</span>
+                  {n.priority === \"High\" && <span className=\"text-[11px] uppercase tracking-widest font-bold text-safety\">High Priority</span>}
+                </div>
+                <h3 className=\"font-display text-2xl mt-2\">{n.title}</h3>
+                <p className=\"text-sm text-slate-600 mt-2 leading-relaxed\">{n.content}</p>
+              </div>
+              {canEdit && (
+                <button onClick={() => remove(n.noticeId)} className=\"self-start p-2 text-slate-400 hover:text-safety\" data-testid={`delete-notice-${n.noticeId}`}><Trash2 className=\"w-4 h-4\"/></button>
+              )}
+            </article>
+          ))}
+        </div>
+      }
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Notices.jsx
+
+
+
+
+Action: file_editor create /app/frontend/src/pages/Settings.jsx --file-text "import React, { useState } from \"react\";
+import { PageHeader } from \"@/components/PageHeader\";
+import { DEFAULT_API, getApiUrl, setApiUrl } from \"@/api/client\";
+import { isDemo, resetMockDb } from \"@/api/mockAdapter\";
+import { toast } from \"sonner\";
+import { Server, Zap, RotateCcw, CheckCircle2, XCircle } from \"lucide-react\";
+
+export default function Settings() {
+  const [url, setUrl] = useState(getApiUrl());
+  const [demo, setDemo] = useState(isDemo());
+  const [ping, setPing] = useState(null); // null | \"ok\" | \"fail\" | \"checking\"
+
+  const save = () => {
+    setApiUrl(url);
+    localStorage.setItem(\"bms_demo_mode\", demo ? \"true\" : \"false\");
+    toast.success(\"Settings saved — reloading\");
+    setTimeout(() => window.location.reload(), 700);
+  };
+
+  const test = async () => {
+    setPing(\"checking\");
+    try {
+      const res = await fetch(url.replace(/\/api$/, \"\") + \"/health\", { method: \"GET\" });
+      setPing(res.ok ? \"ok\" : \"fail\");
+    } catch { setPing(\"fail\"); }
+  };
+
+  const reset = () => {
+    resetMockDb();
+    toast.success(\"Demo data reset\");
+  };
+
+  return (
+    <div className=\"space-y-8 max-w-3xl\" data-testid=\"settings-page\">
+      <PageHeader eyebrow=\"Configuration\" title=\"Settings\" description=\"Point the frontend at your BMS backend, toggle demo mode, and manage local data.\" />
+
+      <section className=\"bms-card p-6 space-y-5\">
+        <div className=\"flex items-center gap-3\">
+          <Server className=\"w-5 h-5 text-brand\" />
+          <h2 className=\"font-display text-xl\">API Connection</h2>
+        </div>
+        <div>
+          <label className=\"bms-label\">BMS API Base URL</label>
+          <input value={url} onChange={(e)=>setUrl(e.target.value)} className=\"bms-input font-mono text-xs\" data-testid=\"settings-api-url\" />
+          <div className=\"text-xs text-slate-500 mt-2\">Default: <span className=\"font-mono\">{DEFAULT_API}</span></div>
+        </div>
+        <div className=\"flex items-center gap-3\">
+          <button className=\"btn-secondary\" onClick={test} data-testid=\"settings-test-btn\">Test connection</button>
+          {ping === \"ok\" && <span className=\"flex items-center gap-1.5 text-sm text-emerald-700\"><CheckCircle2 className=\"w-4 h-4\"/> Online</span>}
+          {ping === \"fail\" && <span className=\"flex items-center gap-1.5 text-sm text-safety\"><XCircle className=\"w-4 h-4\"/> Unreachable</span>}
+          {ping === \"checking\" && <span className=\"text-sm text-slate-500 font-mono\">checking…</span>}
+        </div>
+      </section>
+
+      <section className=\"bms-card p-6 space-y-5\">
+        <div className=\"flex items-center gap-3\">
+          <Zap className=\"w-5 h-5 text-safety\" />
+          <h2 className=\"font-display text-xl\">Demo Mode</h2>
+        </div>
+        <label className=\"flex items-start gap-3 cursor-pointer select-none\">
+          <input type=\"checkbox\" checked={demo} onChange={(e)=>setDemo(e.target.checked)} className=\"w-4 h-4 mt-1 accent-brand\" data-testid=\"settings-demo-toggle\" />
+          <div>
+            <div className=\"font-medium text-slate-900\">Use local in-memory data</div>
+            <div className=\"text-sm text-slate-600 mt-1\">Ideal when your BMS backend isn't reachable from this environment. All writes persist in localStorage.</div>
+          </div>
+        </label>
+        {demo && <button onClick={reset} className=\"btn-secondary text-xs\" data-testid=\"settings-reset-btn\"><RotateCcw className=\"w-3.5 h-3.5\"/> Reset demo data</button>}
+      </section>
+
+      <div className=\"flex justify-end\">
+        <button className=\"btn-primary h-12 px-8\" onClick={save} data-testid=\"settings-save-btn\">Save Changes</button>
+      </div>
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Settings.jsx
+
+
+
+Action: file_editor create /app/frontend/src/pages/Profile.jsx --file-text "import React, { useState } from \"react\";
+import { useAuth } from \"@/contexts/AuthContext\";
+import { api } from \"@/api/client\";
+import { EP } from \"@/api/endpoints\";
+import { PageHeader } from \"@/components/PageHeader\";
+import { toast } from \"sonner\";
+
+export default function Profile() {
+  const { user } = useAuth();
+  const [cur, setCur] = useState(\"\"); const [nxt, setNxt] = useState(\"\");
+
+  const change = async (e) => {
+    e.preventDefault();
+    try {
+      await api.put(EP.auth.changePassword, { currentPassword: cur, newPassword: nxt });
+      toast.success(\"Password updated\");
+      setCur(\"\"); setNxt(\"\");
+    } catch (err) { toast.error(err.response?.data?.message || \"Failed\"); }
+  };
+
+  return (
+    <div className=\"space-y-8 max-w-3xl\" data-testid=\"profile-page\">
+      <PageHeader eyebrow=\"Account\" title=\"Profile\" />
+
+      <section className=\"bms-card p-6\">
+        <div className=\"flex items-center gap-5\">
+          <div className=\"w-20 h-20 bg-slate-900 text-white flex items-center justify-center font-display text-3xl\">{user?.firstName?.[0]}{user?.lastName?.[0]}</div>
+          <div>
+            <div className=\"font-display text-2xl\">{user?.firstName} {user?.lastName}</div>
+            <div className=\"text-sm text-slate-600\">{user?.email}</div>
+            <div className=\"font-mono text-[11px] tracking-wider uppercase text-brand mt-1\">{user?.role}</div>
+          </div>
+        </div>
+        <div className=\"grid sm:grid-cols-2 gap-6 mt-6 pt-6 border-t border-slate-100\">
+          <div><div className=\"eyebrow\">Phone</div><div className=\"mt-1\">{user?.phone || \"—\"}</div></div>
+          <div><div className=\"eyebrow\">User ID</div><div className=\"mt-1 font-mono text-xs text-slate-600\">{user?.userId}</div></div>
+        </div>
+      </section>
+
+      <section className=\"bms-card p-6\">
+        <h2 className=\"font-display text-xl mb-5\">Change Password</h2>
+        <form onSubmit={change} className=\"grid sm:grid-cols-2 gap-4\" data-testid=\"password-form\">
+          <div className=\"sm:col-span-2\"><label className=\"bms-label\">Current Password</label><input type=\"password\" required className=\"bms-input\" value={cur} onChange={(e)=>setCur(e.target.value)} data-testid=\"cur-password\"/></div>
+          <div className=\"sm:col-span-2\"><label className=\"bms-label\">New Password</label><input type=\"password\" required minLength={6} className=\"bms-input\" value={nxt} onChange={(e)=>setNxt(e.target.value)} data-testid=\"new-password\"/></div>
+          <button className=\"btn-primary sm:col-span-2 h-12\" data-testid=\"change-pw-btn\">Update Password</button>
+        </form>
+      </section>
+    </div>
+  );
+}
+"
+Observation: Create successful: /app/frontend/src/pages/Profile.jsx
+
